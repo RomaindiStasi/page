@@ -3,32 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romain di Stasi  Ph.D. - Ethologist, Doctor in Psychology</title>
+    <title>Romain di Stasi, Ph.D. - Ethologist, Doctor in Psychology</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
-            padding:  20px;
-            background-color:  #000000;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background:  white;
-            padding: 30px;
-            border-radius:  10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h1 {
+        
+        body {
+            font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height:  1.6;
             color: #333;
+            background-color: #f4f4f4;
+        }
+        
+        header {
+            background:  linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding:  60px 20px;
+            text-align:  center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight:  300;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            font-weight: 300;
+            margin-top: 10px;
+        }
+        
+        nav {
+            background: white;
+            padding: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top:  0;
+            z-index: 1000;
+        }
+        
+        nav ul {
+            list-style: none;
+            display:  flex;
+            justify-content:  center;
+            flex-wrap:  wrap;
+        }
+        
+        nav ul li {
+            margin: 0;
+        }
+        
+        nav ul li a {
+            display: block;
+            padding: 20px 30px;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background:  #2c3e50;
+            color: white;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow:  0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        section {
+            margin-bottom: 50px;
+        }
+        
+        section h2 {
+            color:  #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+        }
+        
+        section h3 {
+            color:  #34495e;
+            margin-top: 20px;
+            margin-bottom:  10px;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        .profile-image {
+            flex: 0 0 200px;
+            text-align: center;
+        }
+        
+        .profile-image img {
+            width: 200px;
+            height: 200px;
+            border-radius:  50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .publication-item, .training-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+        
+        .publication-item strong, .training-item strong {
+            color: #2c3e50;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-item svg {
+            width: 24px;
+            height: 24px;
+            fill: #3498db;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color:  white;
+            text-align:  center;
+            padding: 20px;
+            margin-top:  40px;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration:  none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            nav ul {
+                flex-direction:  column;
+            }
+            
+            nav ul li a {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Romain di Stasi, Ph.D.</h1>
+        <p>Ethologist | Doctor in Psychology | Researcher</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#training">Training</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
     <div class="container">
-        <h1> My CV</h1>
-        <h1> My Publications</h1>
-        <h1> Training </h1>
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="profile-image">
+                    <!-- Replace with your image URL -->
+                    <img src="https://via.placeholder.com/200" alt="Romain di Stasi">
+                </div>
+                <div class="about-text">
+                    <p>Welcome!  I am an ethologist and doctor in psychology with expertise in animal behavior, cognition, and welfare. </p>
+                    <p>My research focuses on [add your specific research interests here, e.g., social behavior, comparative cognition, animal welfare assessment, etc.].</p>
+                    <p>I am currently [add your current position/affiliation].</p>
+                    
+                    <h3>Research Interests</h3>
+                    <ul>
+                        <li>Animal Behavior and Cognition</li>
+                        <li>Ethology</li>
+                        <li>Comparative Psychology</li>
+                        <li>Animal Welfare</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="publications">
+            <h2>Publications</h2>
+            
+            <div class="publication-item">
+                <strong>Title of Your Publication</strong><br>
+                <em>Authors:  di Stasi, R., et al.</em><br>
+                Journal Name, Year.  Volume(Issue), pages. <br>
+                <a href="#">[PDF]</a> <a href="#">[DOI]</a>
+            </div>
+            
+            <div class="publication-item">
+                <strong>Another Publication Title</strong><br>
+                <em>Authors: di Stasi, R., Co-Author, A.</em><br>
+                Journal Name, Year. Volume(Issue), pages.<br>
+                <a href="#">[PDF]</a> <a href="#">[DOI]</a>
+            </div>
+            
+            <!-- Add more publications as needed -->
+            
+            <p><em>For a complete list of publications, please see my <a href="#">Google Scholar profile</a> or <a href="#">ResearchGate</a>.</em></p>
+        </section>
+        
+        <section id="training">
+            <h2>Education & Training</h2>
+            
+            <div class="training-item">
+                <strong>Ph.D. in Psychology</strong><br>
+                Institution Name, Year<br>
+                <em>Dissertation:  [Title of your dissertation]</em>
+            </div>
+            
+            <div class="training-item">
+                <strong>Master's Degree in [Field]</strong><br>
+                Institution Name, Year
+            </div>
+            
+            <div class="training-item">
+                <strong>Bachelor's Degree in [Field]</strong><br>
+                Institution Name, Year
+            </div>
+            
+            <h3>Professional Experience</h3>
+            <div class="training-item">
+                <strong>[Position Title]</strong><br>
+                Institution/Organization, Years<br>
+                <em>Brief description of responsibilities and achievements. </em>
+            </div>
+            
+            <!-- Add more experience as needed -->
+        </section>
+        
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <span>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></span>
+                </div>
+                
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-. 546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span>GitHub: <a href="https://github.com/RomaindiStasi" target="_blank">@RomaindiStasi</a></span>
+                </div>
+                
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    <span>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">Your Profile</a></span>
+                </div>
+            </div>
+        </section>
     </div>
+    
+    <footer>
+        <p>&copy; 2025 Romain di Stasi. All rights reserved.</p>
+    </footer>
 </body>
 </html>
