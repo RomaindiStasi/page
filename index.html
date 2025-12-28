@@ -7,9 +7,9 @@
 
   <style>
     : root{
-      --bg:   #f5f7fb;
-      --card:   #ffffff;
-      --text:   #0f172a;
+      --bg:  #f5f7fb;
+      --card:  #ffffff;
+      --text:  #0f172a;
       --muted: #475569;
       --border: rgba(15, 23, 42, 0.10);
       --shadow: 0 18px 60px rgba(2, 6, 23, 0.12);
@@ -20,7 +20,7 @@
 
       --radius: 18px;
       --radius-sm: 14px;
-      --max:   1040px;
+      --max:  1040px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -83,25 +83,25 @@
       padding: 40px 28px;
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
-      gap:  18px;
-      align-items: center;
+      gap: 18px;
+      align-items:  center;
     }
 
-    .hero h1{
+    . hero h1{
       font-size:  clamp(1.8rem, 3vw, 2.6rem);
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom:  8px;
+      margin-bottom: 8px;
     }
 
-    .hero p{
+    . hero p{
       color: rgba(255,255,255,0.84);
       font-size: 1.05rem;
       font-weight: 450;
       max-width: 64ch;
     }
 
-    . hero-badges{
+    .hero-badges{
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -113,7 +113,7 @@
       align-items: center;
       gap: 8px;
       padding: 10px 12px;
-      border-radius:   999px;
+      border-radius:  999px;
       border: 1px solid rgba(255,255,255,0.14);
       background: rgba(255,255,255,0.08);
       color: rgba(255,255,255,0.92);
@@ -125,7 +125,7 @@
     .badge-dot{
       width: 8px;
       height: 8px;
-      border-radius:  999px;
+      border-radius: 999px;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       box-shadow: 0 0 0 4px rgba(37,99,235,0.18);
     }
@@ -134,7 +134,7 @@
     nav{
       position: sticky;
       top: 0;
-      z-index:   1000;
+      z-index: 1000;
       backdrop-filter: blur(10px);
       background: rgba(245, 247, 251, 0.72);
       border-bottom: 1px solid var(--border);
@@ -177,9 +177,9 @@
 
     section{
       margin-top: 18px;
-      padding:  26px;
+      padding: 26px;
       background: var(--card);
-      border:   1px solid var(--border);
+      border:  1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow-soft);
     }
@@ -194,7 +194,7 @@
     }
 
     . section-rule{
-      height: 10px;
+      height:  10px;
       width: 10px;
       border-radius: 999px;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
@@ -204,11 +204,11 @@
     section h3{
       margin-top: 18px;
       margin-bottom: 10px;
-      font-size:   1.15rem;
+      font-size: 1.15rem;
       letter-spacing: -0.01em;
     }
 
-    . muted{ color: var(--muted); }
+    .muted{ color: var(--muted); }
 
     /* About */
     .about-content{
@@ -238,8 +238,8 @@
     .quick-links{
       display: flex;
       gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-wrap:  wrap;
+      justify-content:  center;
     }
 
     .btn{
@@ -278,7 +278,7 @@
 
     .pill{
       padding: 8px 12px;
-      border-radius:  999px;
+      border-radius: 999px;
       border: 1px solid rgba(37,99,235,0.18);
       background: rgba(37,99,235,0.06);
       font-weight: 700;
@@ -289,7 +289,7 @@
     /* Projects */
     .projects-grid{
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns:  repeat(2, minmax(0, 1fr));
       gap: 14px;
     }
 
@@ -336,46 +336,38 @@
     .item{
       margin-top: 12px;
       padding: 14px 14px;
-      border-radius: var(--radius-sm);
+      border-radius:  var(--radius-sm);
       border: 1px solid var(--border);
       background: #fbfcfe;
       box-shadow: 0 10px 18px rgba(2,6,23,0.05);
     }
 
-    .item strong{ color: #0b1220; }
-    .item em{ color: var(--muted); }
-    .item p{ margin-top: 8px; }
-
-    . item-title{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+    .item strong{ 
+      color: #0b1220; 
+      font-weight: 700;
     }
 
-    .link-placeholder{
-      font-size: 0.92rem;
-      font-weight: 750;
+    /* Titre cliquable */
+    .item strong a{
+      color: #0b1220;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .item strong a:hover{
       color: var(--accent);
-      padding: 4px 8px;
-      border-radius: 10px;
-      background: rgba(37,99,235,0.08);
-      border: 1px solid rgba(37,99,235,0.14);
-      line-height: 1.2;
-    }
-
-    .link-placeholder:hover{
-      background: rgba(37,99,235,0.14);
-      border-color: rgba(37,99,235,0.22);
       text-decoration: none;
     }
+
+    . item em{ color: var(--muted); }
+    .item p{ margin-top: 8px; }
 
     . oa-badge{
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-size: 0.85rem;
-      font-weight:  800;
+      font-weight: 800;
       color: #0b1220;
       padding: 4px 8px;
       border-radius: 999px;
@@ -383,6 +375,7 @@
       background: rgba(16,185,129,0.10);
       line-height: 1.2;
       white-space: nowrap;
+      margin-left: 8px;
     }
 
     .oa-badge svg{ width: 14px; height: 14px; fill: currentColor; }
@@ -507,7 +500,7 @@
         </div>
 
         <div class="about-text">
-          <p>I am an ethologist and hold a PhD in Psychology.  </p>
+          <p>I am an ethologist and hold a PhD in Psychology. </p>
 
           <p>
             My research focuses on how environmental predictability shapes curiosity and learning, and on how surprise-induced arousal promotes learning. 
@@ -517,10 +510,10 @@
           </p>
 
           <p>
-            I am currently a postdoctoral researcher working on how uncertainty influences curiosity in infants and non-human primates, structured in three work packages. 
-            WP1 is an experimental study with infants (18–24 months) examining the relationship between uncertainty and curiosity.   I will use a wearable device (Empatica EmbracePlus) to measure electrodermal activity (EDA; index of arousal) and heart rate variability (HRV; index of attention), along with an AI tool developed with Dr Fabien Cerrotti to automatically detect facial expressions of surprise.  The aim is to test whether surprise, arousal, and vagal-related attention mediate the link between uncertainty and curiosity.
-            WP2 is a comparative study, in collaboration with several zoological parks, involving three non-human primate species to test the evolutionary continuity of the Goldilocks effect.
-            WP3 uses a two-step modelling approach.   First, I will integrate the effect sizes obtained in WP1 and WP2 into a structural equation model (SEM) to formalize the relationships between uncertainty, surprise, arousal, and attention.  Second, this model will be implemented in an artificial agent (AI) to test its predictive validity, with the goal of evaluating whether an AI governed by this model exhibits curiosity patterns comparable to those observed in infants and non-human primates.
+            I am currently a postdoctoral researcher working on how uncertainty influences curiosity in infants and non-human primates, structured in three work packages.
+            WP1 is an experimental study with infants (18–24 months) examining the relationship between uncertainty and curiosity.  I will use a wearable device (Empatica EmbracePlus) to measure electrodermal activity (EDA; index of arousal) and heart rate variability (HRV; index of attention), along with an AI tool developed with Dr Fabien Cerrotti to automatically detect facial expressions of surprise.  The aim is to test whether surprise, arousal, and vagal-related attention mediate the link between uncertainty and curiosity.
+            WP2 is a comparative study, in collaboration with several zoological parks, involving three non-human primate species to test the evolutionary continuity of the Goldilocks effect. 
+            WP3 uses a two-step modelling approach.  First, I will integrate the effect sizes obtained in WP1 and WP2 into a structural equation model (SEM) to formalize the relationships between uncertainty, surprise, arousal, and attention. Second, this model will be implemented in an artificial agent (AI) to test its predictive validity, with the goal of evaluating whether an AI governed by this model exhibits curiosity patterns comparable to those observed in infants and non-human primates.
           </p>
 
           <h3>Research interests</h3>
@@ -572,51 +565,39 @@
       <h2><span class="section-rule" aria-hidden="true"></span> Publications</h2>
 
       <div class="item">
-        <span class="item-title">
-          <strong>The impact of humor on infant social learning:   Insights from social gaze, heart rate variability, and laughter.  </strong>
-          <span class="oa-badge" title="Open Access">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M17 9h-1V7a4 4 0 0 0-8 0h2a2 2 0 1 1 4 0v2H7a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3zm1 9a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6z"/>
-            </svg>
-            Open Access
-          </span>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">The impact of humor on infant social learning:  Insights from social gaze, heart rate variability, and laughter. </a></strong>
+        <span class="oa-badge" title="Open Access">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M17 9h-1V7a4 4 0 0 0-8 0h2a2 2 0 1 1 4 0v2H7a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3zm1 9a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6z"/>
+          </svg>
+          OA
         </span>
         <br />
-        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L.   (2025)</em><br />
+        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L. (2025)</em><br />
         Cognitive Development, 74, 101575.  Without direct APC costs to the authors (Accord Couperin).
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Do Cockatiels Choose Their Favourite Tunes? Use of Touchscreen for Animal Welfare Enhancement and Insights into Musical Preferences.</strong>
-          <span class="oa-badge" title="Open Access">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M17 9h-1V7a4 4 0 0 0-8 0h2a2 2 0 1 1 4 0v2H7a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3zm1 9a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6z"/>
-            </svg>
-            Open Access
-          </span>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Do Cockatiels Choose Their Favourite Tunes? Use of Touchscreen for Animal Welfare Enhancement and Insights into Musical Preferences.</a></strong>
+        <span class="oa-badge" title="Open Access">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M17 9h-1V7a4 4 0 0 0-8 0h2a2 2 0 1 1 4 0v2H7a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3zm1 9a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6z"/>
+          </svg>
+          OA
         </span>
         <br />
         <em>Le Covec, M., di Stasi, R., Aimé, C., Bouet, L., Watanabe, S., &amp; Bovet, D. (2024)</em><br />
-        Animals, 14(24), 3609.  Open access (APC waived by the publisher).
+        Animals, 14(24), 3609. Open access (APC waived by the publisher).
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Human perception of cats' communicative cues: human-cat communication goes multimodal.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Human perception of cats' communicative cues: human-cat communication goes multimodal.</a></strong><br />
         <em>de Mouzon, C., di Stasi, R., &amp; Leboucher, G. (2023)</em><br />
         Applied Animal Behaviour Science, 270, 106137. 
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>How's my kitty?   Acoustic parameters of cat-directed speech in human-cat interactions.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">How's my kitty?  Acoustic parameters of cat-directed speech in human-cat interactions.</a></strong><br />
         <em>de Mouzon, C., Gilbert, C., di Stasi, R., &amp; Leboucher, G. (2022)</em><br />
         Behavioural Processes, 203, 104755.
       </div>
@@ -626,114 +607,72 @@
       <h2><span class="section-rule" aria-hidden="true"></span> Conference &amp; seminar presentations</h2>
 
       <div class="item">
-        <span class="item-title">
-          <strong>From humour to curiosity: How surprise, arousal, and attention shape learning.  </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>di Stasi, R.   (2025, November). CS4S Lab Seminar, Center for Cognition &amp; Neurosciences (CRCN), Université libre de Bruxelles (ULB), Brussels, Belgium.  </em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">From humour to curiosity: How surprise, arousal, and attention shape learning. </a></strong><br />
+        <em>di Stasi, R.  (2025, November). CS4S Lab Seminar, Center for Cognition &amp; Neurosciences (CRCN), Université libre de Bruxelles (ULB), Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>How humor, laughter, positive emotions and surprise shape infant social learning:   Exploring attentional and physiological mechanisms.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>di Stasi, R., Esseily, R., &amp; Rat-Fischer, L. (2025, April). CONNEX Seminar, CRCN, ULB, Brussels, Belgium. </em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">How humor, laughter, positive emotions and surprise shape infant social learning: Exploring attentional and physiological mechanisms.</a></strong><br />
+        <em>di Stasi, R., Esseily, R., &amp; Rat-Fischer, L. (2025, April). CONNEX Seminar, CRCN, ULB, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>[French] Influence de l'humour, du rire et des émotions positives sur l'apprentissage social des nourrissons. </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">[French] Influence de l'humour, du rire et des émotions positives sur l'apprentissage social des nourrissons. </a></strong><br />
         <em>di Stasi, R., Esseily, R., &amp; Rat-Fischer, L. (2024, December). UNESCOG Lab Meeting, CRCN, ULB, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>[French] Rôle de l'humour, du rire et des émotions positives sur l'apprentissage social chez le bébé</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>di Stasi, R., Esseily, R., &amp; Rat-Fischer, L. (2024, December). SFECA Dyscord Jeune Chercheur.  se.  s., Paris, France</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">[French] Rôle de l'humour, du rire et des émotions positives sur l'apprentissage social chez le bébé</a></strong><br />
+        <em>di Stasi, R., Esseily, R., &amp; Rat-Fischer, L. (2024, December). SFECA Dyscord Jeune Chercheur. se. s., Paris, France</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Unveiling infant surprise: a comprehensive analysis of physiological, behavioral, and facial expression markers.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L.   (2024, December). XXIV ICIS Symposium, Glasgow, UK.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Unveiling infant surprise: a comprehensive analysis of physiological, behavioral, and facial expression markers. </a></strong><br />
+        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L.  (2024, December). XXIV ICIS Symposium, Glasgow, UK.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Surprise Unveiled:   Decoding Infant Reactions through Physiological, Behavioral, and Facial Expressions.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L.  (2024, June). Workshop on positive emotions and learning in infants, Paris, France.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Surprise Unveiled: Decoding Infant Reactions through Physiological, Behavioral, and Facial Expressions.</a></strong><br />
+        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L. (2024, June). Workshop on positive emotions and learning in infants, Paris, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>[French] Humour et apprentissage chez le bébé :   faut-il les faire rire pour qu'ils apprennent ? </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L.   (2023, April). Cognitive Sciences Forum, Paris, France.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">[French] Humour et apprentissage chez le bébé :  faut-il les faire rire pour qu'ils apprennent ? </a></strong><br />
+        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L.  (2023, April). Cognitive Sciences Forum, Paris, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Humour may enhance social learning in infants in a tool use learning task.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L.  (2023, January). Budapest CEU Conference on Cognitive Development, Budapest, Hungary.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Humour may enhance social learning in infants in a tool use learning task.</a></strong><br />
+        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L. (2023, January). Budapest CEU Conference on Cognitive Development, Budapest, Hungary.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Combining behavioral and physiological analyses to study the effects of humor on infants' learning.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Combining behavioral and physiological analyses to study the effects of humor on infants' learning.</a></strong><br />
         <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L. (2022, October). GDR French BabyLab 2022 Congress, Paris, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Humorous demonstration may enhance social learning in infants in a tool use learning task.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Humorous demonstration may enhance social learning in infants in a tool use learning task.</a></strong><br />
         <em>di Stasi, R., Esseily, R., &amp; Rat-Fischer, L. (2022, July). XXIII ICIS 2022 Developmental Cascades Congress, Ottawa, Canada.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Introduction Presentation to open science.  </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>di Stasi, R.   (2021, June). EPN-R Federation Research Day Symposium, Nanterre, France.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Introduction Presentation to open science. </a></strong><br />
+        <em>di Stasi, R.  (2021, June). EPN-R Federation Research Day Symposium, Nanterre, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Prenatal experience of maternal walking rhythm on head postural control.   In the symposium "Exploring rhythm processing in early infancy through multi faced lenses:   genetics, microbiome, experience, behavior".  </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>Bobin-Begue, A., di Stasi R.   (2024, July). XXIV ICIS 2024 Symposium, Glasgow, England.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Prenatal experience of maternal walking rhythm on head postural control.  In the symposium "Exploring rhythm processing in early infancy through multi faced lenses:  genetics, microbiome, experience, behavior".</a></strong><br />
+        <em>Bobin-Begue, A., di Stasi R.  (2024, July). XXIV ICIS 2024 Symposium, Glasgow, England.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>[French] Rôle des émotions dans les apprentissages avec une approche multidimensionnelle :   le cas de l'humour chez le bébé.  </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>Rat-Fischer, L., di Stasi, R., Esseily, R.   (2022, April). EPN-R Federation Research Day Symposium, Nanterre, France.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">[French] Rôle des émotions dans les apprentissages avec une approche multidimensionnelle :  le cas de l'humour chez le bébé. </a></strong><br />
+        <em>Rat-Fischer, L., di Stasi, R., Esseily, R.  (2022, April). EPN-R Federation Research Day Symposium, Nanterre, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>[French] Le rôle de l'humour dans le développement socio-cognitif du jeune enfant. </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">[French] Le rôle de l'humour dans le développement socio-cognitif du jeune enfant. </a></strong><br />
         <em>Rat-Fischer, L., di Stasi, R., Esseily, R.  (2021, October).</em>
       </div>
     </section>
@@ -742,91 +681,58 @@
       <h2><span class="section-rule" aria-hidden="true"></span> Poster presentations</h2>
 
       <div class="item">
-        <span class="item-title">
-          <strong>How do uncertainty and surprise shape exploration in infants? </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">How do uncertainty and surprise shape exploration in infants? </a></strong><br />
         <em>di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, November). NeuroCog conference, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Curiosity in the face of the uncertain: a developmental and comparative approach between infants and non-human primates.  </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Curiosity in the face of the uncertain: a developmental and comparative approach between infants and non-human primates. </a></strong><br />
         <em>di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, May). Belgian Association for Psychological Sciences, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>How does uncertainty modulate infants' curiosity?  </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">How does uncertainty modulate infants' curiosity? </a></strong><br />
         <em>di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, May). 10th UNI General Meeting, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>[French] Humour et apprentissage chez le bébé : faut-il les faire rire pour qu'ils apprennent ? </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">[French] Humour et apprentissage chez le bébé : faut-il les faire rire pour qu'ils apprennent ?</a></strong><br />
         <em>di Stasi, R., Esseily, R., Fakhri, A., &amp; Rat-Fischer, L. (2023, April). Forum des Sciences Cognitives, Paris, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Positive Emotional Reactions and Arousal Have a Positive Influence on Infants' Learning. </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Positive Emotional Reactions and Arousal Have a Positive Influence on Infants' Learning. </a></strong><br />
         <em>di Stasi, R., Esseily, R., Fakhri, A., &amp; Rat-Fischer, L. (2023, March). International Convention of Psychological Science (ICPS).</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>The effect of humour on social learning in infants in a tool use task.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">The effect of humour on social learning in infants in a tool use task.</a></strong><br />
         <em>di Stasi, R., Esseily, R., Fakhri, A., &amp; Rat-Fischer, L. (2021, December). 4th International Student Course in Behavioural Biology, Institut Francilien d'Ethologie, Villetaneuse, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Musical preferences in cockatiels: consonant or dissonant music?</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>di Stasi, R., Le Covec, M.   &amp; Bovet, D.   (2019, September). 3rd International Student Course in Behavioural Biology, Institut Francilien d'Ethologie, Villetaneuse, France.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Musical preferences in cockatiels: consonant or dissonant music?</a></strong><br />
+        <em>di Stasi, R., Le Covec, M.  &amp; Bovet, D.  (2019, September). 3rd International Student Course in Behavioural Biology, Institut Francilien d'Ethologie, Villetaneuse, France. </em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Influence of Affiliation on Social Learning of Tool Use In A Humorous Context in 18-Month-old Infants.</strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>Kergus C., Beauvallet A.   F., Thobois J., di Stasi, R., Gauthier E, Cathala I, Esseily R, Rat-Fischer L.  (2024, May). 53ème Colloque de la Société Française pour l'Etude du Comportement Animal, Albi, France.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Influence of Affiliation on Social Learning of Tool Use In A Humorous Context in 18-Month-old Infants.</a></strong><br />
+        <em>Kergus C., Beauvallet A.  F., Thobois J., di Stasi, R., Gauthier E, Cathala I, Esseily R, Rat-Fischer L. (2024, May). 53ème Colloque de la Société Française pour l'Etude du Comportement Animal, Albi, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>[French] Influence of Affiliation on Social Learning of Tool Use In A Humorous Context in 18-Month-old Infants. </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">[French] Influence of Affiliation on Social Learning of Tool Use In A Humorous Context in 18-Month-old Infants.</a></strong><br />
         <em>Gauthier E., di Stasi, R., Esseily R., Rat-Fischer L. (2023, April). Forum des Sciences Cognitives, Paris, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Vocal Communication in human-cat relationship.  </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>De Mouzon, C., Gilbert, C., di Stasi, R.   &amp; Leboucher, G.  (2021, June). EPN-R Federation Research Day Symposium, Nanterre, France.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Vocal Communication in human-cat relationship. </a></strong><br />
+        <em>De Mouzon, C., Gilbert, C., di Stasi, R.  &amp; Leboucher, G. (2021, June). EPN-R Federation Research Day Symposium, Nanterre, France.</em>
       </div>
 
       <div class="item">
-        <span class="item-title">
-          <strong>Individual musical preferences in cockatiels.  </strong>
-          <a class="link-placeholder" href="#" target="_blank" rel="noopener noreferrer">Insérer hyperlien</a>
-        </span><br />
-        <em>Le Covec M., Bouet L., di Stasi, R.   &amp; Bovet D. EPN-R Federation Research Day Symposium, Nanterre, France.</em>
+        <strong><a href="#" target="_blank" rel="noopener noreferrer">Individual musical preferences in cockatiels. </a></strong><br />
+        <em>Le Covec M., Bouet L., di Stasi, R.  &amp; Bovet D. EPN-R Federation Research Day Symposium, Nanterre, France.</em>
       </div>
     </section>
 
@@ -834,21 +740,21 @@
       <h2><span class="section-rule" aria-hidden="true"></span> Teaching activity</h2>
 
       <div class="item">
-        <h3><strong>Introductory course on Bayesian Statistics.  </strong></h3>
-        <em>1 December 2025, 1 hour.  </em><br />
-        <em>Université Libre de Bruxelles, Brussels, Belgium.   Second year of master's degree. </em>
+        <h3><strong>Introductory course on Bayesian Statistics. </strong></h3>
+        <em>1 December 2025, 1 hour. </em><br />
+        <em>Université Libre de Bruxelles, Brussels, Belgium.  Second year of master's degree. </em>
         <p>This course introduced Bayesian statistics to master's students and was structured in three parts. 
         First, we covered Bayes' theorem, its reformulation by Laplace, and the role of priors in Bayesian
         statistics. Second, we introduced likelihood and maximum-likelihood estimation for linear and generalized
         linear regression and contrasted it with Bayesian inference using Markov chain Monte Carlo (MCMC) to estimate
         a posterior distribution rather than a single point estimate. Third, I illustrated the Bayesian approach
-        using a simple example based on the binomial distribution.  </p>
+        using a simple example based on the binomial distribution.</p>
       </div>
 
       <div class="item">
-        <h3><strong>Research and Clinical Interviewing Methods. </strong></h3>
-        <em>1 September 2024 to 31 December 2024, 48 hours. </em><br />
-        <em>Université Paris Nanterre, Nanterre, France.  Second year of Bachelor.  </em>
+        <h3><strong>Research and Clinical Interviewing Methods.</strong></h3>
+        <em>1 September 2024 to 31 December 2024, 48 hours.</em><br />
+        <em>Université Paris Nanterre, Nanterre, France. Second year of Bachelor. </em>
         <p>This course aimed to introduce students to various interview techniques, including clinical and research
         interviews, as well as methods to foster a strong therapeutic alliance. I introduced fundamental concepts
         essential for building this alliance, such as empathy, and presented research defining cognitive and affective
@@ -856,7 +762,7 @@
         effective interviews, I covered various probing techniques, including Cunji's '4 R's.' We also discussed the
         distinctions between clinical and research interviews. 
 
-        As part of this course, I supervised second-year psychology students on a research project.   Working in groups of
+        As part of this course, I supervised second-year psychology students on a research project.  Working in groups of
         four or more, they were tasked with conducting multiple interviews, including exploratory and semi-structured interviews, followed by content analysis. 
         Finally, they submitted a scientific report detailing the findings from these interviews.</p>
       </div>
@@ -866,20 +772,20 @@
         <em>1 September 2023 to 31 December 2024, 120 hours.</em><br />
         <em>Université Paris Nanterre, Nanterre, France. First year of Bachelor.</em>
         <p>The objective of this course was to guide first-year psychology students (L1)
-        through an observational project. At the end of the semester, they were required
+        through an observational project.  At the end of the semester, they were required
         to submit a scientific report in the format of an academic article, including an
         Introduction, Materials and Methods, Results, and Discussion sections. Students
         were free to choose their own topic but were required to design a coherent ethogram
         to address their hypothesis/hypotheses. In their introduction, they were expected
         to present both their general and operational hypotheses, as well as their results
-        and interpretations.   Additionally, they had to calculate an inter-observer reliability
+        and interpretations.  Additionally, they had to calculate an inter-observer reliability
         score to validate their ethogram.  The observational project could focus on either human
         or non-human animals and had to be presented in a 15-page document, including the bibliography. 
 
         Before submitting their final report, students delivered an oral presentation of their project,
-        allowing me to provide guidance on writing their report.   My role was to support them throughout
+        allowing me to provide guidance on writing their report.  My role was to support them throughout
         the project, explain the differences between dependent and independent variables, as well as
-        between general and operational hypotheses.   I also provided theoretical lessons to clarify the
+        between general and operational hypotheses.  I also provided theoretical lessons to clarify the
         requirements for each section of the report and directed them toward feasible observational protocols
         that could be completed within a four-month period.</p>
       </div>
@@ -889,14 +795,14 @@
         <em>1 January 2022 to 30 April 2024, 90 hours.</em><br />
         <em>Université Paris Nanterre, Nanterre, France. Second year of Bachelor.</em>
         <p>During these courses, I supervised a developmental psychology research project for several
-        groups, each composed of two second-year undergraduate students, over 12 sessions of 1.5
+        groups, each composed of two second-year undergraduate students, over 12 sessions of 1. 5
         hours each. The students were required to recruit an infant for two sessions, design an
         experimental protocol including an ethogram, and analyze their results. 
         Subsequently, they were tasked with producing a 25-page report (including an introduction,
         materials and methods, results, discussion, and conclusion) and presenting their findings
-        to me. I provided step-by-step guidance throughout the process, as they had to submit four
-        intermediate reports before the final version.   For each of these submissions, I provided
-        detailed feedback to ensure they could complete their final report under optimal conditions.  </p>
+        to me.  I provided step-by-step guidance throughout the process, as they had to submit four
+        intermediate reports before the final version.  For each of these submissions, I provided
+        detailed feedback to ensure they could complete their final report under optimal conditions.</p>
       </div>
 
       <div class="item">
@@ -905,7 +811,7 @@
         <em>Université Paris Nanterre, Nanterre, France. Third year of Bachelor.</em>
         <p>The course focused on adolescent development, with discussions based on academic texts. 
         I enriched the students' reflections by providing complementary theoretical insights and
-        encouraging them to adopt a critical perspective on the articles.   Topics covered included
+        encouraging them to adopt a critical perspective on the articles.  Topics covered included
         cognitive development, the psychosocial effects of puberty, and the importance of attachment
         quality. 
 
@@ -914,34 +820,34 @@
         operations, brain development as revealed through imaging techniques (e.g., fMRI), and
         studies on attachment in both humans and non-human species. We highlighted the robustness
         of attachment theory from both phylogenetic and ontogenetic perspectives, examining research
-        conducted on adolescents.  </p>
+        conducted on adolescents. </p>
       </div>
 
       <div class="item">
         <h3><strong>Neuroanatomy for Psychology Students.</strong></h3>
         <em>1 January 2021 to 30 April 2023, 88 hours.</em><br />
-        <em>Université Paris Nanterre, Nanterre, France. Second year of Bachelor.  </em>
+        <em>Université Paris Nanterre, Nanterre, France. Second year of Bachelor. </em>
         <p>This course focuses on the different components of the central nervous system. 
         It begins with an overview of the various cells that make up the nervous system
-        (glial cells and neurons), including its formation during embryogenesis.   Subsequent
+        (glial cells and neurons), including its formation during embryogenesis.  Subsequent
         sessions explore the main structures of the nervous system, such as the spinal cord, brainstem,
-        and cerebellum, concluding with a discussion of the components involved in sensory and motor functions.  </p>
+        and cerebellum, concluding with a discussion of the components involved in sensory and motor functions. </p>
       </div>
 
       <div class="item">
         <h3><strong>Life Sciences (Tutorials for Students in Teaching, Education, and Training Careers).</strong></h3>
         <em>1 January 2021 – 31 March 2023, 58 hours.</em><br />
         <em>Université Paris Nanterre, Nanterre, France. First and second year of master's degree.</em>
-        <p>This course is composed of several subfields.   It includes a module on the components of
-        biodiversity, discussing various groups of animal and plant species.   We also cover the
-        theory of evolution, embryogenesis, and nutrition.  Additionally, we explore different
+        <p>This course is composed of several subfields.  It includes a module on the components of
+        biodiversity, discussing various groups of animal and plant species. We also cover the
+        theory of evolution, embryogenesis, and nutrition. Additionally, we explore different
         approaches to teaching life sciences in the classroom with a pedagogical focus. 
 
         In another module, I evaluated presentations (master's level, M2) where students
         designed and presented a lesson or pedagogical sequence for teaching life sciences to primary
         school students. Another component of the course was the "Read, Speak, Write" module, where I
         prepared first-year master's students for their teaching certification exams, specifically
-        for the life sciences section. </p>
+        for the life sciences section.</p>
       </div>
     </section>
 
@@ -957,13 +863,13 @@
 
         The theoretical part explained the fundamentals of Bayesian statistics, including Bayes' theorem,
         the concept of priors, and the historical reasons why frequentist statisticians long excluded Bayesian methods.
-        I began by introducing priors using a simple example based on binomial theory.   I then demonstrated how, in Bayesian statistics,
+        I began by introducing priors using a simple example based on binomial theory.  I then demonstrated how, in Bayesian statistics,
         the slope of a regression line is estimated using the concept of maximum plausibility rather than simply relying on the least squares method.
         Finally, I introduced the brms package and explained how to perform simple linear regression using the brm function.  We discussed how to
         evaluate the quality of parameter estimation and how to conduct post hoc contrast analyses.
 
-        The second part of the workshop was a 5-hour practical session.   During this session, I guided participants
-        through hands-on exercises that utilized the brms package to define priors, fit models, and assess model quality.  </p>
+        The second part of the workshop was a 5-hour practical session.  During this session, I guided participants
+        through hands-on exercises that utilized the brms package to define priors, fit models, and assess model quality. </p>
       </div>
     </section>
 
@@ -973,19 +879,19 @@
       <div class="item">
         <strong>Member of the EPN-R Federation Council</strong><br />
         <em>Jan 2021 – Dec 2024 | Université Paris Nanterre, France</em>
-        <p>Member of the EPN-R Federation Council (a federation of seven research laboratories in Psychology, Movement Sciences - STAPS, and Neurosciences). As a council member, I was required to attend federation meetings every two months to participate in votes and decisions regarding its operations and research activities.  </p>
+        <p>Member of the EPN-R Federation Council (a federation of seven research laboratories in Psychology, Movement Sciences - STAPS, and Neurosciences). As a council member, I was required to attend federation meetings every two months to participate in votes and decisions regarding its operations and research activities.</p>
       </div>
 
       <div class="item">
         <strong>Representative of PhD students at LECD laboratory</strong><br />
         <em>1 Jan 2024 – 14 Jun 2024 | Université Paris Nanterre, France</em>
-        <p>Representative of PhD students at my PhD's laboratory (Laboratoire Ethologie Cognition Développement, LECD). In this role, I was required to attend laboratory council meetings every two months and to participate in decision-making and voting processes.  </p>
+        <p>Representative of PhD students at my PhD's laboratory (Laboratoire Ethologie Cognition Développement, LECD). In this role, I was required to attend laboratory council meetings every two months and to participate in decision-making and voting processes. </p>
       </div>
 
       <div class="item">
         <strong>Member of the organizing committee for the EPN-R federation's Research Day</strong><br />
         <em>1 Jan 2021 – 14 Apr 2023 | Université Paris Nanterre, France</em>
-        <p>Member of the organizing committee for the EPN-R federation's Research Day (research colloquium for all laboratories in the federation), three years running. This annual colloquium brings together all researchers in the federation, with oral presentations in the morning and poster sessions in the afternoon.   It was held on 4 June 2021, 15 April 2022, and 14 April 2023.</p>
+        <p>Member of the organizing committee for the EPN-R federation's Research Day (research colloquium for all laboratories in the federation), three years running. This annual colloquium brings together all researchers in the federation, with oral presentations in the morning and poster sessions in the afternoon.  It was held on 4 June 2021, 15 April 2022, and 14 April 2023.</p>
       </div>
     </section>
 
@@ -999,15 +905,15 @@
       </div>
 
       <div class="item">
-        <strong>Journée d'étude (Study days) Haute École Spécialisée de Suisse occidentale (Hes.  so) - Valais Wallis</strong><br />
+        <strong>Journée d'étude (Study days) Haute École Spécialisée de Suisse occidentale (Hes. so) - Valais Wallis</strong><br />
         <em>5 May 2022 – 5 Nov 2022 | HES-SO Valais-Wallis, Sion, Switzerland</em>
-        <p>Oral presentations on the development of humor in infants and its implications for learning, delivered at Hes. so study days in Sion, Switzerland, on November 5, 2022, and May 10, 2022.</p>
+        <p>Oral presentations on the development of humor in infants and its implications for learning, delivered at Hes.so study days in Sion, Switzerland, on November 5, 2022, and May 10, 2022.</p>
       </div>
 
       <div class="item">
         <strong>Interview - Louie Media</strong><br />
         <em>15 Feb 2022 | Paris, France</em>
-        <p>Interview with Louie Media journalist Lena Coutrot on February 15, 2022, about the development of baby humor and our EmoLearn research project.   The podcast was published on April 4, 2022.</p>
+        <p>Interview with Louie Media journalist Lena Coutrot on February 15, 2022, about the development of baby humor and our EmoLearn research project.  The podcast was published on April 4, 2022.</p>
       </div>
     </section>
 
@@ -1025,7 +931,7 @@
       <div class="contact-info">
         <div class="contact-card">
           <div class="icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-. 9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           </div>
           <div>
             <strong>Email</strong><br />
@@ -1035,7 +941,7 @@
 
         <div class="contact-card">
           <div class="icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 . 319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-. 546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           </div>
           <div>
             <strong>GitHub</strong><br />
@@ -1045,7 +951,7 @@
 
         <div class="contact-card">
           <div class="icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-. 966 0-1.75-. 79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
           </div>
           <div>
             <strong>LinkedIn (French)</strong><br />
@@ -1059,4 +965,16 @@
           </div>
           <div>
             <strong>ResearchGate</strong><br />
-            <span class="muted"><a href="https://www.researchgate.net/profile/Romain-Di-Stasi? ev=hdr_xprf" target="_blank" rel="noopener noreferrer">Romain Di Stasi</a></span
+            <span class="muted"><a href="https://www.researchgate.net/profile/Romain-Di-Stasi? ev=hdr_xprf" target="_blank" rel="noopener noreferrer">Romain Di Stasi</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Romain di Stasi. All rights reserved. </p>
+  </footer>
+</body>
+</html>
