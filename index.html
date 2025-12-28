@@ -6,10 +6,10 @@
   <title>Romain di Stasi, Ph.D. — Ethologist & Researcher</title>
 
   <style>
-    :root{
-      --bg: #f5f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
+    : root{
+      --bg:  #f5f7fb;
+      --card:  #ffffff;
+      --text:  #1f2937;
       --muted: #6b7280;
       --border: rgba(15, 23, 42, 0.08);
       --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
@@ -20,12 +20,15 @@
 
       --radius: 16px;
       --radius-sm: 12px;
-      --max: 1040px;
+      --max:  1040px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html { 
+      scroll-behavior: smooth;
+      min-height: 100%;
+    }
 
     body{
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
@@ -34,17 +37,21 @@
       background: radial-gradient(1200px 600px at 20% -10%, rgba(37, 99, 235, 0.15), transparent 60%),
                   radial-gradient(1200px 600px at 80% 0%, rgba(14, 165, 233, 0.12), transparent 55%),
                   var(--bg);
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     a{ color: var(--accent); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
+    a:hover{ text-decoration:  underline; }
 
     /* Header */
     header{
       padding: 64px 20px 24px;
     }
 
-    .hero{
+    . hero{
       max-width: var(--max);
       margin: 0 auto;
       background: linear-gradient(135deg, #0b1220 0%, #111b33 55%, #0b1220 100%);
@@ -58,13 +65,13 @@
 
     .hero::before{
       content:"";
-      position:absolute;
+      position: absolute;
       inset:-2px;
-      background:
+      background: 
         radial-gradient(900px 380px at 15% 20%, rgba(37,99,235,0.35), transparent 60%),
         radial-gradient(700px 320px at 85% 10%, rgba(14,165,233,0.25), transparent 55%),
         radial-gradient(600px 300px at 70% 90%, rgba(37,99,235,0.18), transparent 60%);
-      pointer-events:none;
+      pointer-events: none;
       filter: blur(0px);
       opacity: 0.9;
     }
@@ -75,17 +82,17 @@
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
       gap: 18px;
-      align-items: center;
+      align-items:  center;
     }
 
-    .hero h1{
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
+    . hero h1{
+      font-size:  clamp(1.8rem, 3vw, 2.6rem);
       font-weight: 650;
       letter-spacing: -0.02em;
-      margin-bottom: 8px;
+      margin-bottom:  8px;
     }
 
-    .hero p{
+    . hero p{
       color: rgba(255,255,255,0.82);
       font-size: 1.05rem;
       font-weight: 400;
@@ -93,18 +100,18 @@
     }
 
     .hero-badges{
-      display:flex;
+      display: flex;
       flex-wrap: wrap;
       gap: 10px;
       justify-content: flex-end;
     }
 
     .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 10px 12px;
-      border-radius: 999px;
+      border-radius:  999px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.06);
       color: rgba(255,255,255,0.92);
@@ -134,7 +141,7 @@
       max-width: var(--max);
       margin: 0 auto;
       padding: 10px 14px;
-      display:flex;
+      display: flex;
       align-items:center;
       justify-content:center;
       gap: 10px;
@@ -143,7 +150,7 @@
 
     .nav-inner a{
       padding: 10px 12px;
-      border-radius: 999px;
+      border-radius:  999px;
       color: #0b1220;
       font-weight: 600;
       font-size: 0.95rem;
@@ -161,6 +168,7 @@
       max-width: var(--max);
       margin: 26px auto 60px;
       padding: 0 14px;
+      flex: 1;
     }
 
     section{
@@ -176,13 +184,13 @@
       font-size: 1.55rem;
       letter-spacing: -0.02em;
       margin-bottom: 14px;
-      display:flex;
-      align-items: center;
+      display: flex;
+      align-items:  center;
       gap: 10px;
     }
 
-    .section-rule{
-      height: 10px;
+    . section-rule{
+      height:  10px;
       width: 10px;
       border-radius: 999px;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
@@ -191,31 +199,31 @@
     section h3{
       margin-top: 18px;
       margin-bottom: 10px;
-      font-size: 1.15rem;
+      font-size:  1.15rem;
       letter-spacing: -0.01em;
     }
 
-    .muted{ color: var(--muted); }
+    . muted{ color: var(--muted); }
 
     /* About */
     .about-content{
-      display:grid;
+      display: grid;
       grid-template-columns: 220px 1fr;
       gap: 22px;
-      align-items: start;
+      align-items:  start;
     }
 
     .profile-image{
       display:flex;
-      flex-direction: column;
-      gap: 12px;
+      flex-direction:  column;
+      gap:  12px;
       align-items: center;
     }
 
     .profile-image img{
       width: 200px;
       height: 200px;
-      border-radius: 999px;
+      border-radius:  999px;
       object-fit: cover;
       border: 3px solid rgba(37,99,235,0.20);
       box-shadow: 0 18px 35px rgba(2,6,23,0.20);
@@ -225,7 +233,7 @@
     .quick-links{
       display:flex;
       gap: 10px;
-      flex-wrap: wrap;
+      flex-wrap:  wrap;
       justify-content: center;
     }
 
@@ -235,7 +243,7 @@
       justify-content:center;
       gap: 10px;
       padding: 10px 12px;
-      border-radius: 12px;
+      border-radius:  12px;
       border: 1px solid var(--border);
       background: #fff;
       font-weight: 650;
@@ -251,15 +259,15 @@
       text-decoration: none;
     }
 
-    .about-text p{
+    . about-text p{
       margin-bottom: 12px;
     }
 
     /* Pills list */
     .pill-list{
       list-style: none;
-      display:flex;
-      flex-wrap: wrap;
+      display: flex;
+      flex-wrap:  wrap;
       gap: 10px;
       margin-top: 10px;
       padding-left: 0;
@@ -267,7 +275,7 @@
 
     .pill{
       padding: 8px 12px;
-      border-radius: 999px;
+      border-radius:  999px;
       border: 1px solid rgba(37,99,235,0.18);
       background: rgba(37,99,235,0.06);
       font-weight: 600;
@@ -292,22 +300,22 @@
       margin-top: 0;
       margin-bottom: 8px;
       display:flex;
-      align-items:center;
+      align-items: center;
       gap: 10px;
     }
 
-    .project h3::before{
+    . project h3:: before{
       content:"";
       width: 10px;
       height: 10px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius:  999px;
+      background:  linear-gradient(135deg, var(--accent), var(--accent-2));
     }
 
-    .project .links{
+    .project . links{
       margin-top: 10px;
       display:flex;
-      gap: 10px;
+      gap:  10px;
       flex-wrap: wrap;
     }
 
@@ -315,7 +323,7 @@
     .item{
       margin-top: 12px;
       padding: 14px 14px;
-      border-radius: var(--radius-sm);
+      border-radius:  var(--radius-sm);
       border: 1px solid var(--border);
       background: #fbfcfe;
     }
@@ -326,30 +334,30 @@
     /* Contact */
     .contact-info{
       display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 12px;
     }
 
     .contact-card{
       padding: 14px;
-      border-radius: var(--radius-sm);
+      border-radius:  var(--radius-sm);
       border: 1px solid var(--border);
       background: #fff;
       display:flex;
       gap: 12px;
-      align-items: flex-start;
+      align-items:  flex-start;
     }
 
     .icon{
       width: 36px;
       height: 36px;
-      border-radius: 12px;
+      border-radius:  12px;
       display:flex;
       align-items:center;
       justify-content:center;
       background: rgba(37,99,235,0.08);
       border: 1px solid rgba(37,99,235,0.14);
-      flex: 0 0 auto;
+      flex:  0 0 auto;
     }
 
     .icon svg{
@@ -363,7 +371,7 @@
       margin: 18px auto 40px;
       padding: 0 14px;
       color: var(--muted);
-      text-align:center;
+      text-align: center;
       font-size: 0.95rem;
     }
 
@@ -372,8 +380,8 @@
       .hero-inner{
         grid-template-columns: 1fr;
       }
-      .hero-badges{
-        justify-content:flex-start;
+      . hero-badges{
+        justify-content: flex-start;
       }
       .about-content{
         grid-template-columns: 1fr;
@@ -417,6 +425,9 @@
       <a href="#Poster_presentation">Posters</a>
       <a href="#Teaching_activity">Teaching</a>
       <a href="#Professional_training_Delivered">Training</a>
+      <a href="#social_political">Social & Political</a>
+      <a href="#public_engagement">Public Engagement</a>
+      <a href="#supervision">Supervision</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
@@ -428,7 +439,8 @@
 
       <div class="about-content">
         <div class="profile-image">
-          <img src="https://via.placeholder.com/200" alt="Romain di Stasi" />
+          <!-- REMPLACEZ 'profile. jpg' par le nom de votre photo -->
+          <img src="https://raw.githubusercontent.com/RomaindiStasiRecommence/RomaindiStasiRecommence. github.io/main/Profile. jpg" alt="Romain di Stasi" />
           <div class="quick-links">
             <a class="btn" href="https://github.com/RomaindiStasi" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a class="btn" href="#contact">Contact</a>
@@ -436,7 +448,7 @@
         </div>
 
         <div class="about-text">
-          <p>I am an ethologist and hold a PhD in Psychology.</p>
+          <p>I am an ethologist and hold a PhD in Psychology. </p>
 
           <p>
             My research focuses on how environmental predictability shapes curiosity and learning, and on how surprise-induced arousal promotes learning.
@@ -447,9 +459,9 @@
 
           <p>
             I am currently a postdoctoral researcher working on how uncertainty influences curiosity in infants and non-human primates, structured in three work packages.
-            WP1 is an experimental study with infants (18–24 months) examining the relationship between uncertainty and curiosity. I will use a wearable device (Empatica EmbracePlus) to measure electrodermal activity (EDA; index of arousal) and heart rate variability (HRV; index of attention), along with an AI tool developed with Dr Fabien Cerrotti to automatically detect facial expressions of surprise. The aim is to test whether surprise, arousal, and vagal-related attention mediate the link between uncertainty and curiosity.
-            WP2 is a comparative study, in collaboration with several zoological parks, involving three non-human primate species to test the evolutionary continuity of the Goldilocks effect.
-            WP3 uses a two-step modelling approach. First, I will integrate the effect sizes obtained in WP1 and WP2 into a structural equation model (SEM) to formalize the relationships between uncertainty, surprise, arousal, and attention. Second, this model will be implemented in an artificial agent (AI) to test its predictive validity, with the goal of evaluating whether an AI governed by this model exhibits curiosity patterns comparable to those observed in infants and non-human primates.
+            WP1 is an experimental study with infants (18–24 months) examining the relationship between uncertainty and curiosity.  I will use a wearable device (Empatica EmbracePlus) to measure electrodermal activity (EDA; index of arousal) and heart rate variability (HRV; index of attention), along with an AI tool developed with Dr Fabien Cerrotti to automatically detect facial expressions of surprise.  The aim is to test whether surprise, arousal, and vagal-related attention mediate the link between uncertainty and curiosity.
+            WP2 is a comparative study, in collaboration with several zoological parks, involving three non-human primate species to test the evolutionary continuity of the Goldilocks effect. 
+            WP3 uses a two-step modelling approach.  First, I will integrate the effect sizes obtained in WP1 and WP2 into a structural equation model (SEM) to formalize the relationships between uncertainty, surprise, arousal, and attention.  Second, this model will be implemented in an artificial agent (AI) to test its predictive validity, with the goal of evaluating whether an AI governed by this model exhibits curiosity patterns comparable to those observed in infants and non-human primates.
           </p>
 
           <h3>Research interests</h3>
@@ -465,10 +477,6 @@
             <li class="pill">Human and non-human ethology</li>
             <li class="pill">Comparative psychology</li>
           </ul>
-
-          <p class="muted" style="margin-top:14px;">
-            Tip: replace the placeholder image URL with your own photo.
-          </p>
         </div>
       </div>
     </section>
@@ -480,7 +488,7 @@
         <div class="project">
           <h3>EmoLearn</h3>
           <p>
-            EmoLearn explores how emotions, such as humour and positive affect, support learning in infancy.
+            EmoLearn explores how emotions, such as humour and positive affect, support learning in infancy. 
             The project investigates how emotional contexts shape attention, engagement, and learning during early development.
           </p>
           <div class="links">
@@ -505,9 +513,9 @@
       <h2><span class="section-rule" aria-hidden="true"></span> Publications</h2>
 
       <div class="item">
-        <strong>The impact of humor on infant social learning: Insights from social gaze, heart rate variability, and laughter.</strong><br />
-        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L. (2025)</em><br />
-        Cognitive Development, 74, 101575. Without direct APC costs to the authors (Accord Couperin).<br />
+        <strong>The impact of humor on infant social learning:  Insights from social gaze, heart rate variability, and laughter. </strong><br />
+        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L.  (2025)</em><br />
+        Cognitive Development, 74, 101575.  Without direct APC costs to the authors (Accord Couperin).<br />
         <a href="#">[PDF]</a> <a href="#">[DOI]</a>
       </div>
 
@@ -521,12 +529,12 @@
       <div class="item">
         <strong>Human perception of cats' communicative cues: human-cat communication goes multimodal.</strong><br />
         <em>de Mouzon, C., di Stasi, R., &amp; Leboucher, G. (2023)</em><br />
-        Applied Animal Behaviour Science, 270, 106137.<br />
+        Applied Animal Behaviour Science, 270, 106137. <br />
         <a href="#">[PDF]</a> <a href="#">[DOI]</a>
       </div>
 
       <div class="item">
-        <strong>How’s my kitty? Acoustic parameters of cat-directed speech in human-cat interactions.</strong><br />
+        <strong>How's my kitty? Acoustic parameters of cat-directed speech in human-cat interactions.</strong><br />
         <em>de Mouzon, C., Gilbert, C., di Stasi, R., &amp; Leboucher, G. (2022)</em><br />
         Behavioural Processes, 203, 104755.<br />
         <a href="#">[PDF]</a> <a href="#">[DOI]</a>
@@ -537,23 +545,23 @@
       <h2><span class="section-rule" aria-hidden="true"></span> Conference &amp; seminar presentations</h2>
 
       <div class="item">
-        <strong>From humour to curiosity: How surprise, arousal, and attention shape learning.</strong><br />
-        <em>di Stasi, R. (2025, November). CS4S Lab Seminar, Center for Cognition &amp; Neurosciences (CRCN), Université libre de Bruxelles (ULB), Brussels, Belgium.</em>
+        <strong>From humour to curiosity: How surprise, arousal, and attention shape learning. </strong><br />
+        <em>di Stasi, R.  (2025, November). CS4S Lab Seminar, Center for Cognition &amp; Neurosciences (CRCN), Université libre de Bruxelles (ULB), Brussels, Belgium. </em>
       </div>
 
       <div class="item">
-        <strong>How humor, laughter, positive emotions and surprise shape infant social learning: Exploring attentional and physiological mechanisms.</strong><br />
+        <strong>How humor, laughter, positive emotions and surprise shape infant social learning:  Exploring attentional and physiological mechanisms.</strong><br />
         <em>di Stasi, R., Esseily, R., &amp; Rat-Fischer, L. (2025, April). CONNEX Seminar, CRCN, ULB, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <strong>[French] Influence de l’humour, du rire et des émotions positives sur l’apprentissage social des nourrissons.</strong><br />
+        <strong>[French] Influence de l'humour, du rire et des émotions positives sur l'apprentissage social des nourrissons. </strong><br />
         <em>di Stasi, R., Esseily, R., &amp; Rat-Fischer, L. (2024, December). UNESCOG Lab Meeting, CRCN, ULB, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
         <strong>Unveiling infant surprise: a comprehensive analysis of physiological, behavioral, and facial expression markers.</strong><br />
-        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L. (2024, December). XXIV ICIS Symposium, Glasgow, UK.</em>
+        <em>di Stasi, R., Esseily, R., Cerrotti, F., &amp; Rat-Fischer, L.  (2024, December). XXIV ICIS Symposium, Glasgow, UK.</em>
       </div>
     </section>
 
@@ -561,22 +569,22 @@
       <h2><span class="section-rule" aria-hidden="true"></span> Poster presentations</h2>
 
       <div class="item">
-        <strong>How do uncertainty and surprise shape exploration in infants?</strong><br />
+        <strong>How do uncertainty and surprise shape exploration in infants? </strong><br />
         <em>di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, November). NeuroCog conference, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <strong>Curiosity in the face of the uncertain: a developmental and comparative approach between infants and non-human primates.</strong><br />
+        <strong>Curiosity in the face of the uncertain: a developmental and comparative approach between infants and non-human primates. </strong><br />
         <em>di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, May). Belgian Association for Psychological Sciences, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <strong>How does uncertainty modulate infants' curiosity?</strong><br />
+        <strong>How does uncertainty modulate infants' curiosity? </strong><br />
         <em>di Stasi, R., Kabdebon, C., Delhaye, Q., &amp; de Heering, A. (2025, May). 10th UNI General Meeting, Brussels, Belgium.</em>
       </div>
 
       <div class="item">
-        <strong>Positive Emotional Reactions and Arousal Have a Positive Influence on Infants' Learning.</strong><br />
+        <strong>Positive Emotional Reactions and Arousal Have a Positive Influence on Infants' Learning. </strong><br />
         <em>di Stasi, R., Esseily, R., Fakhri, A., &amp; Rat-Fischer, L. (2023, March). International Convention of Psychological Science (ICPS).</em>
       </div>
     </section>
@@ -585,38 +593,38 @@
       <h2><span class="section-rule" aria-hidden="true"></span> Teaching</h2>
 
       <div class="item">
-        <strong>Introductory course on Bayesian Statistics.</strong><br />
-        <em>1 December 2025 (1 hour) — Université libre de Bruxelles, Brussels, Belgium (Master’s level).</em>
+        <strong>Introductory course on Bayesian Statistics. </strong><br />
+        <em>1 December 2025 (1 hour) — Université libre de Bruxelles, Brussels, Belgium (Master's level).</em>
       </div>
 
       <div class="item">
         <strong>Research and Clinical Interviewing Methods.</strong><br />
-        <em>Sep–Dec 2024 (48 hours) — Université Paris Nanterre, France (Bachelor’s level).</em>
+        <em>Sep–Dec 2024 (48 hours) — Université Paris Nanterre, France (Bachelor's level).</em>
       </div>
 
       <div class="item">
         <strong>Observation Methodology (Human and Non-Human Ethology).</strong><br />
-        <em>Sep 2023–Dec 2024 (120 hours) — Université Paris Nanterre, France (Bachelor’s level).</em>
+        <em>Sep 2023–Dec 2024 (120 hours) — Université Paris Nanterre, France (Bachelor's level).</em>
       </div>
 
       <div class="item">
         <strong>Infant Developmental Psychology.</strong><br />
-        <em>Jan 2022–Apr 2024 (90 hours) — Université Paris Nanterre, France (Bachelor’s level).</em>
+        <em>Jan 2022–Apr 2024 (90 hours) — Université Paris Nanterre, France (Bachelor's level).</em>
       </div>
 
       <div class="item">
         <strong>Adolescent Developmental Psychology.</strong><br />
-        <em>Sep–Dec 2023 (96 hours) — Université Paris Nanterre, France (Bachelor’s level).</em>
+        <em>Sep–Dec 2023 (96 hours) — Université Paris Nanterre, France (Bachelor's level).</em>
       </div>
 
       <div class="item">
         <strong>Neuroanatomy for Psychology Students.</strong><br />
-        <em>Jan 2021–Apr 2023 (88 hours) — Université Paris Nanterre, France (Bachelor’s level).</em>
+        <em>Jan 2021–Apr 2023 (88 hours) — Université Paris Nanterre, France (Bachelor's level).</em>
       </div>
 
       <div class="item">
         <strong>Life Sciences (tutorials for teacher training students).</strong><br />
-        <em>Jan 2021–Mar 2023 (58 hours) — Université Paris Nanterre, France (Master’s level).</em>
+        <em>Jan 2021–Mar 2023 (58 hours) — Université Paris Nanterre, France (Master's level).</em>
       </div>
     </section>
 
@@ -625,7 +633,59 @@
 
       <div class="item">
         <strong>Bayesian statistics — Theory and Practice</strong><br />
-        <em>19–20 June 2025 (9 hours) — Université Paris Nanterre, France.</em>
+        <em>19–20 June 2025 (9 hours) — Université Paris Nanterre, France. </em>
+      </div>
+    </section>
+
+    <section id="social_political">
+      <h2><span class="section-rule" aria-hidden="true"></span> Social and political activities</h2>
+
+      <div class="item">
+        <strong>Member of the EPN-R Federation Council</strong><br />
+        <em>Jan 2021 – Dec 2024 | Université Paris Nanterre, France</em>
+        <p>Member of the EPN-R Federation Council (a federation of seven research laboratories in Psychology, Movement Sciences - STAPS, and Neurosciences). As a council member, I was required to attend federation meetings every two months to participate in votes and decisions regarding its operations and research activities.</p>
+      </div>
+
+      <div class="item">
+        <strong>Representative of PhD students at LECD laboratory</strong><br />
+        <em>1 Jan 2024 – 14 Jun 2024 | Université Paris Nanterre, France</em>
+        <p>Representative of PhD students at my PhD's laboratory (Laboratoire Ethologie Cognition Développement, LECD). In this role, I was required to attend laboratory council meetings every two months and to participate in decision-making and voting processes. </p>
+      </div>
+
+      <div class="item">
+        <strong>Member of the organizing committee for the EPN-R federation's Research Day</strong><br />
+        <em>1 Jan 2021 – 14 Apr 2023 | Université Paris Nanterre, France</em>
+        <p>Member of the organizing committee for the EPN-R federation's Research Day (research colloquium for all laboratories in the federation), three years running. This annual colloquium brings together all researchers in the federation, with oral presentations in the morning and poster sessions in the afternoon.  It was held on 4 June 2021, 15 April 2022, and 14 April 2023.</p>
+      </div>
+    </section>
+
+    <section id="public_engagement">
+      <h2><span class="section-rule" aria-hidden="true"></span> Public Engagement and Dissemination</h2>
+
+      <div class="item">
+        <strong>Fête de la science (Festival of Science)</strong><br />
+        <em>14 Oct 2022 – 15 Oct 2023 | Université Paris Nanterre, France</em>
+        <p>Presentation of the EmoLearn project on the influence of humor on infant learning at the Paris Nanterre University Festival of Science, Friday 14th and Saturday 15th October 2022, Friday 13th and Saturday 14th October 2023.</p>
+      </div>
+
+      <div class="item">
+        <strong>Journée d'étude (Study days) Haute École Spécialisée de Suisse occidentale (Hes. so) - Valais Wallis</strong><br />
+        <em>5 May 2022 – 5 Nov 2022 | HES-SO Valais-Wallis, Sion, Switzerland</em>
+        <p>Oral presentations on the development of humor in infants and its implications for learning, delivered at Hes.so study days in Sion, Switzerland, on November 5, 2022, and May 10, 2022.</p>
+      </div>
+
+      <div class="item">
+        <strong>Interview - Louie Media</strong><br />
+        <em>15 Feb 2022 | Paris, France</em>
+        <p>Interview with Louie Media journalist Lena Coutrot on February 15, 2022, about the development of baby humor and our EmoLearn research project.  The podcast was published on April 4, 2022.</p>
+      </div>
+    </section>
+
+    <section id="supervision">
+      <h2><span class="section-rule" aria-hidden="true"></span> Student supervision</h2>
+
+      <div class="item">
+        <p>Supervised 17 trainees in ethology and psychology (from Bachelor's to Master's level). Served as a jury member for three master's theses and four pre-thesis projects.  See my Europass profile for full details.</p>
       </div>
     </section>
 
@@ -639,13 +699,13 @@
           </div>
           <div>
             <strong>Email</strong><br />
-            <span class="muted"><a href="mailto:your.email@example.com">your.email@example.com</a></span>
+            <span class="muted"><a href="mailto:romain. di-stasi@outlook.com">romain.di-stasi@outlook.com</a></span>
           </div>
         </div>
 
         <div class="contact-card">
           <div class="icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-. 546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           </div>
           <div>
             <strong>GitHub</strong><br />
@@ -655,11 +715,21 @@
 
         <div class="contact-card">
           <div class="icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s. 784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
           </div>
           <div>
-            <strong>LinkedIn</strong><br />
-            <span class="muted"><a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">Your profile</a></span>
+            <strong>LinkedIn (French)</strong><br />
+            <span class="muted"><a href="https://www.linkedin.com/in/romain-di-stasi-136758172/" target="_blank" rel="noopener noreferrer">Romain di Stasi</a></span>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm-2 14h4v2h-4v-2zm3. 931-7.329c0 .751-.601 1.329-1.431 1.329-. 827 0-1.5-.578-1.5-1.329 0-.753.673-1.329 1.5-1.329.83 0 1.431.576 1.431 1.329zm1.069 1.329v5h-2v-5h2zm-8 0v5h-2v-5h2zm2-2c-1.104 0-2-. 896-2-2s.896-2 2-2 2 .896 2 2-. 896 2-2 2z"/></svg>
+          </div>
+          <div>
+            <strong>ResearchGate</strong><br />
+            <span class="muted"><a href="https://www.researchgate.net/profile/Romain-Di-Stasi? ev=hdr_xprf" target="_blank" rel="noopener noreferrer">Romain Di Stasi</a></span>
           </div>
         </div>
       </div>
@@ -668,7 +738,7 @@
   </div>
 
   <footer>
-    <p>&copy; 2025 Romain di Stasi. All rights reserved.</p>
+    <p>&copy; 2025 Romain di Stasi. All rights reserved. </p>
   </footer>
 </body>
 </html>
