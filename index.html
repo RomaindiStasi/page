@@ -345,6 +345,26 @@
     flex-wrap: wrap;
   }
 
+  /* Project media (image + text) */
+  .project .project-media{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+  }
+
+  .project .project-media img{
+    max-width: 140px;   /* ajuste si tu veux */
+    height: auto;
+    display: block;
+  }
+
+  .project .project-media p{
+    margin: 0;
+    font-size: 20px;
+  }
+
+
   /* CV items */
   .item{
     margin-top: 12px;
@@ -726,10 +746,13 @@
         
         <div class="project">
           <h3>CUBE-SD</h3>
-          <p>
-            CUBE-SD examines how uncertainty fuels curiosity in infants and non-human primates. 
-            By combining behavioural, physiological, and comparative approaches, the project aims to better understand how curiosity emerges and supports learning. 
-          </p>
+          <div class="project-media">
+    <img src="Logo/Logo_CUBE_SD.svg" alt="CUBE-SD project logo">
+    <p>
+      CUBE-SD examines how uncertainty fuels curiosity in infants and non-human primates.
+      By combining behavioural, physiological, and comparative approaches, the project aims to better understand how curiosity emerges and supports learning.
+    </p>
+  </div>
           <div class="links">
             <a class="btn" href="https://adeheering.ulb.be/" target="_blank" rel="noopener noreferrer">Project website</a>
           </div>
@@ -737,10 +760,13 @@
         
       <div class="project">
           <h3>EmoLearn</h3>
+        <div class="project-media">
+    <img src="Logo/Logo_Emolearn_NoirSansFond.png" alt="EmoLearn project logo">
           <p>
             EmoLearn explores how emotions, such as humour and positive affect, support learning in infancy.   
             The project investigates how emotional contexts shape attention, engagement, and learning during early development.  
           </p>
+        </div>
           <div class="links">
             <a class="btn" href="https://emolearn.parisnanterre.fr/" target="_blank" rel="noopener noreferrer">Project website</a>
           </div>
