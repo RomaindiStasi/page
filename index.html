@@ -501,6 +501,11 @@ nav{
    RESPONSIVE DESIGN - Mobile & Tablet
    ============================================ */
 
+.mobile-scroll-hint,
+.mobile-hero-hint{
+  display: none;
+}
+
 /* Tablets and smaller laptops */
 @media (max-width: 1100px){
   :root{
@@ -533,7 +538,6 @@ nav{
 /* Mobile phones and small tablets */
 @media (max-width: 768px){
   
-  /* Typography adjustments */
   body{
     font-size: 0.95rem;
     line-height: 1.6;
@@ -555,7 +559,6 @@ nav{
     font-size: 1.05rem;
   }
   
-  /* Header and hero adjustments */
   header{
     padding: 32px 12px 16px;
   }
@@ -569,9 +572,10 @@ nav{
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    gap: 8px;
+    gap: 6px;
     justify-content: flex-start;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
+    padding-right: 26px;
     scrollbar-width: thin;
   }
 
@@ -580,9 +584,10 @@ nav{
     min-width: max-content;
     flex: 0 0 auto;
     justify-content: flex-start;
+    font-size: 0.8rem;
+    padding: 8px 10px;
   }
   
-  /* Navigation improvements */
   .nav-inner{
     max-width: 100%;
     justify-content: flex-start;
@@ -590,8 +595,9 @@ nav{
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-    padding: 8px 10px;
+    padding: 8px 10px 10px 10px;
     gap: 8px;
+    padding-right: 30px;
     scrollbar-width: thin;
     scroll-snap-type: x proximity;
   }
@@ -604,7 +610,20 @@ nav{
     scroll-snap-align: start;
   }
   
-  /* Container and sections */
+  .mobile-scroll-hint{
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding: 0 10px 8px 10px;
+  }
+
+  .mobile-hero-hint{
+    display: block;
+    color: rgba(255,255,255,0.75);
+    font-size: 0.78rem;
+    margin-top: 8px;
+  }
+  
   .container{
     margin: 16px auto 40px;
     padding: 0 10px;
@@ -616,7 +635,6 @@ nav{
     border-radius: var(--radius-sm);
   }
   
-  /* About section */
   .about-content{
     grid-template-columns: 1fr;
   }
@@ -635,7 +653,6 @@ nav{
     width: 100%;
   }
   
-  /* Projects */
   .projects-grid{
     grid-template-columns: 1fr;
     gap: 12px;
@@ -664,7 +681,6 @@ nav{
     justify-content: center;
   }
   
-  /* Contact section */
   .contact-info{
     grid-template-columns: 1fr;
   }
@@ -682,7 +698,6 @@ nav{
     justify-content: center;
   }
   
-  /* Pills and badges */
   .pill-list{
     gap: 8px;
   }
@@ -692,7 +707,6 @@ nav{
     padding: 6px 10px;
   }
   
-  /* Items (CV sections) */
   .item{
     padding: 12px;
   }
@@ -706,7 +720,6 @@ nav{
     justify-content: center;
   }
   
-  /* Buttons general */
   .btn{
     padding: 10px 14px;
     font-size: 0.9rem;
@@ -734,6 +747,11 @@ nav{
   
   section h2{
     font-size: 1.25rem;
+  }
+
+  .badge{
+    font-size: 0.75rem;
+    padding: 7px 9px;
   }
 
   .nav-inner a{
@@ -776,20 +794,20 @@ nav{
   <header>
     <div class="hero">
       <div class="hero-inner">
-        <div>
-          <h1>Romain di Stasi, Ph.D.</h1>
-          <p>Ethologist · PhD in Psychology · Researcher</p>
-        </div>
+  <div>
+    <h1>Romain di Stasi, Ph.D.</h1>
+    <p>Ethologist · PhD in Psychology · Researcher</p>
+    <p class="mobile-hero-hint">Swipe to see more topics →</p>
+  </div>
 
-        <div class="hero-badges" aria-label="Highlights">
-          <span class="badge"><span class="badge-dot"></span> Uncertainty & curiosity</span>
-          <span class ="badge"><span class ="badge-dot"></span> Humor & learning </span>
-          <span class ="badge"><span class ="badge-dot"></span> Music & social behaviours </span>
-          <span class ="badge"><span class ="badge-dot"></span> Human developement & animal ethology </span>
-          <span class ="badge"><span class ="badge-dot"></span> Bayesian statistics </span>
-        </div>
-      </div>
-    </div>
+  <div class="hero-badges" aria-label="Highlights">
+    <span class="badge"><span class="badge-dot"></span> Uncertainty & curiosity</span>
+    <span class="badge"><span class="badge-dot"></span> Humor & learning</span>
+    <span class="badge"><span class="badge-dot"></span> Music & social behaviours</span>
+    <span class="badge"><span class="badge-dot"></span> Human development & animal ethology</span>
+    <span class="badge"><span class="badge-dot"></span> Bayesian statistics</span>
+  </div>
+</div>
   </header>
 
   <nav>
@@ -811,6 +829,7 @@ nav{
       <a href="#Master_research_supervision"> Master Research Supervision </a>
       <a href="#Comittee_member"> Committee member </a>
     </div>
+  <p class="mobile-scroll-hint">Swipe to see more sections →</p>
   </nav>
 
   <div class="container">
