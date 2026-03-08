@@ -142,43 +142,56 @@
     background: linear-gradient(135deg, var(--accent), var(--accent-2));
     box-shadow: 0 0 0 4px rgba(37,99,235,0.16);
   }
-
+  
   /* Nav */
-  nav{
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    background: rgba(245, 247, 251, 0.78);
-    border-bottom: 1px solid var(--border);
-  }
+nav{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  background: rgba(245, 247, 251, 0.78);
+  border-bottom: 1px solid var(--border);
+}
 
-  .nav-inner{
-    max-width: var(--max);
-    margin: 0 auto;
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+.nav-inner{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-  .nav-inner a{
-    padding: 10px 12px;
-    border-radius: 999px;
-    color: #0b1220;
-    font-weight: 700;
-    font-size: 0.95rem;
-    transition: background 0.18s ease, transform 0.18s ease;
-  }
+.nav-inner a{
+  padding: 10px 12px;
+  border-radius: 999px;
+  color: #0b1220;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
 
-  .nav-inner a:hover{
-    background: rgba(37,99,235,0.10);
-    transform: translateY(-1px);
-    color: #0b1220;
-    text-decoration: none;
-  }
+.nav-inner a:hover{
+  background: rgba(37,99,235,0.10);
+  transform: translateY(-1px);
+  color: #0b1220;
+  text-decoration: none;
+}
+
+.nav-inner::-webkit-scrollbar{
+  height: 6px;
+}
+
+.nav-inner::-webkit-scrollbar-thumb{
+  background: rgba(15, 23, 42, 0.20);
+  border-radius: 999px;
+}
+
+.nav-inner::-webkit-scrollbar-track{
+  background: transparent;
+}
 
   /* Layout */
   .container{
@@ -551,33 +564,44 @@
     padding: 28px 20px;
   }
   
-.hero-badges{
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  gap: 8px;
-  justify-content: flex-start;
-  padding-bottom: 4px;
-  scrollbar-width: thin;
-}
+  .hero-badges{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
 
-.badge{
-  width: auto;
-  min-width: max-content;
-  flex: 0 0 auto;
-  justify-content: flex-start;
-}
+  .badge{
+    width: auto;
+    min-width: max-content;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+  }
   
   /* Navigation improvements */
   .nav-inner{
+    max-width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
     padding: 8px 10px;
-    gap: 6px;
+    gap: 8px;
+    scrollbar-width: thin;
+    scroll-snap-type: x proximity;
   }
   
   .nav-inner a{
+    flex: 0 0 auto;
+    white-space: nowrap;
     padding: 8px 10px;
     font-size: 0.85rem;
+    scroll-snap-align: start;
   }
   
   /* Container and sections */
@@ -711,81 +735,11 @@
   section h2{
     font-size: 1.25rem;
   }
-  
-.nav-inner{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.nav-inner a{
-  padding: 10px 12px;
-  border-radius: 999px;
-  color: #0b1220;
-  font-weight: 700;
-  font-size: 0.95rem;
-  transition: background 0.18s ease, transform 0.18s ease;
-}
-
-.nav-inner a:hover{
-  background: rgba(37,99,235,0.10);
-  transform: translateY(-1px);
-  color: #0b1220;
-  text-decoration: none;
-}
-
-/* Mobile + tablette */
-@media (max-width: 768px){
-
-  .nav-inner{
-    max-width: 100%;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    padding: 8px 10px;
-    gap: 8px;
-    scrollbar-width: thin;
-    scroll-snap-type: x proximity;
-  }
-
-  .nav-inner a{
-    flex: 0 0 auto;
-    white-space: nowrap;
-    padding: 8px 10px;
-    font-size: 0.85rem;
-    scroll-snap-align: start;
-  }
-}
-
-/* Très petit téléphone */
-@media (max-width: 480px){
 
   .nav-inner a{
     font-size: 0.8rem;
     padding: 7px 9px;
   }
-}
-
-/* Barre de scroll Chrome / Edge / Safari */
-.nav-inner::-webkit-scrollbar{
-  height: 6px;
-}
-
-.nav-inner::-webkit-scrollbar-thumb{
-  background: rgba(15, 23, 42, 0.20);
-  border-radius: 999px;
-}
-
-.nav-inner::-webkit-scrollbar-track{
-  background: transparent;
-}
   
   .profile-image img{
     width: 120px;
@@ -796,6 +750,23 @@
     padding: 12px;
     min-height: auto;
   }
+}
+
+/* Scrollbars for horizontal scrolling areas */
+.nav-inner::-webkit-scrollbar,
+.hero-badges::-webkit-scrollbar{
+  height: 6px;
+}
+
+.nav-inner::-webkit-scrollbar-thumb,
+.hero-badges::-webkit-scrollbar-thumb{
+  background: rgba(15, 23, 42, 0.20);
+  border-radius: 999px;
+}
+
+.nav-inner::-webkit-scrollbar-track,
+.hero-badges::-webkit-scrollbar-track{
+  background: transparent;
 }
 
 </style>
@@ -814,7 +785,7 @@
           <span class="badge"><span class="badge-dot"></span> Uncertainty & curiosity</span>
           <span class ="badge"><span class ="badge-dot"></span> Humor & learning </span>
           <span class ="badge"><span class ="badge-dot"></span> Music & social behaviours </span>
-          <span class ="badge"><span class ="badge-dot"></span> Human developement & animal Ethology </span>
+          <span class ="badge"><span class ="badge-dot"></span> Human developement & animal ethology </span>
           <span class ="badge"><span class ="badge-dot"></span> Bayesian statistics </span>
         </div>
       </div>
@@ -1523,8 +1494,8 @@
 
       <div class="item">
         <strong> Interview - Le Petit Podcast </strong>
-        <em> 4 Mar 2026, U-Square (VUB–ULB) and Solbosh Campus at the Université libre de Bruxelles (ULB), Brussel, Belgium.</em>
-        <p> Interview with podcaster and paediatric physiotherapist Jerremy Lerruite for his podcast “Le petit Podcast,” in which we spent the whole day discussing the link between humour, surprise, curiosity, and learning in young children. The podcast will be released in video format very soon.</p>
+        <em> 4 Mar 2026, U-Square (VUB–ULB) and Solbosch Campus at the Université libre de Bruxelles (ULB), Brussel, Belgium.</em>
+        <p> Interview with podcaster and paediatric physiotherapist Jeremy Lerruite for his podcast “Le petit Podcast,” in which we spent the whole day discussing the link between humour, surprise, curiosity, and learning in young children. The podcast will be released in video format very soon.</p>
         <p> Link to his channel <a href ="https://www.youtube.com/@Le.petit.podcast" target="_blank" rel="noopener noreferrer"> here </a> </p>
       </div>
         
