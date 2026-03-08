@@ -551,15 +551,23 @@
     padding: 28px 20px;
   }
   
-  .hero-badges{
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .badge{
-    width: 100%;
-    justify-content: flex-start;
-  }
+.hero-badges{
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  gap: 8px;
+  justify-content: flex-start;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.badge{
+  width: auto;
+  min-width: max-content;
+  flex: 0 0 auto;
+  justify-content: flex-start;
+}
   
   /* Navigation improvements */
   .nav-inner{
@@ -704,16 +712,80 @@
     font-size: 1.25rem;
   }
   
+.nav-inner{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nav-inner a{
+  padding: 10px 12px;
+  border-radius: 999px;
+  color: #0b1220;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.nav-inner a:hover{
+  background: rgba(37,99,235,0.10);
+  transform: translateY(-1px);
+  color: #0b1220;
+  text-decoration: none;
+}
+
+/* Mobile + tablette */
+@media (max-width: 768px){
+
   .nav-inner{
+    max-width: 100%;
     justify-content: flex-start;
+    flex-wrap: nowrap;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+    padding: 8px 10px;
+    gap: 8px;
+    scrollbar-width: thin;
+    scroll-snap-type: x proximity;
   }
-  
+
   .nav-inner a{
+    flex: 0 0 auto;
     white-space: nowrap;
-    font-size: 0.8rem;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    scroll-snap-align: start;
   }
+}
+
+/* Très petit téléphone */
+@media (max-width: 480px){
+
+  .nav-inner a{
+    font-size: 0.8rem;
+    padding: 7px 9px;
+  }
+}
+
+/* Barre de scroll Chrome / Edge / Safari */
+.nav-inner::-webkit-scrollbar{
+  height: 6px;
+}
+
+.nav-inner::-webkit-scrollbar-thumb{
+  background: rgba(15, 23, 42, 0.20);
+  border-radius: 999px;
+}
+
+.nav-inner::-webkit-scrollbar-track{
+  background: transparent;
+}
   
   .profile-image img{
     width: 120px;
