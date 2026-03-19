@@ -315,10 +315,8 @@ nav{
 /* Projects */
 .projects-scroll{
   width: 100%;
-  overflow-x: auto;
+  overflow: hidden;
   overflow-y: hidden;
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
   cursor: grab;
 }
 
@@ -340,8 +338,8 @@ nav{
   flex-wrap: nowrap;
   gap: 14px;
   width: max-content;
-  min-width: 100%;
   animation: projectsAutoScroll 8s linear infinite;
+  will-change: transform;
 }
 
 .projects-scroll:hover .projects-grid{
@@ -366,56 +364,55 @@ nav{
     transform: translateX(calc(-494px * 3));
   }
 }
+
+.project:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 32px rgba(2,6,23,0.10);
+  border-color: rgba(37,99,235,0.22);
 }
 
-  .project:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 18px 32px rgba(2,6,23,0.10);
-    border-color: rgba(37,99,235,0.22);
-  }
+.project h3{
+  margin-top: 0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  .project h3{
-    margin-top: 0;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+.project h3::before{
+  content:"";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 0 5px rgba(14,165,233,0.10);
+}
 
-  .project h3::before{
-    content:"";
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    box-shadow: 0 0 0 5px rgba(14,165,233,0.10);
-  }
+.project .links{
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-  .project .links{
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+/* Project media (image + text) */
+.project .project-media{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+}
 
-  /* Project media (image + text) */
-  .project .project-media{
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 10px;
-  }
+.project .project-media img{
+  max-width: 140px;
+  height: auto;
+  display: block;
+}
 
-  .project .project-media img{
-    max-width: 140px;   /* ajuste si tu veux */
-    height: auto;
-    display: block;
-  }
-
-  .project .project-media p{
-    margin: 0;
-    font-size: 20px;
-  }
+.project .project-media p{
+  margin: 0;
+  font-size: 20px;
+}
 
 
   /* CV items */
