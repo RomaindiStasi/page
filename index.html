@@ -312,21 +312,60 @@ nav{
     color: var(--text);
   }
 
-  /* Projects */
-  .projects-grid{
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
+/* Projects */
+.projects-scroll{
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  cursor: grab;
+}
 
-  .project{
-    padding: 16px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,0.96));
-    box-shadow: 0 10px 18px rgba(2,6,23,0.05);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+.projects-scroll::-webkit-scrollbar{
+  height: 8px;
+}
+
+.projects-scroll::-webkit-scrollbar-thumb{
+  background: rgba(15, 23, 42, 0.20);
+  border-radius: 999px;
+}
+
+.projects-scroll::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+.projects-grid{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  width: max-content;
+  min-width: 100%;
+  animation: projectsAutoScroll 28s linear infinite;
+}
+
+.projects-scroll:hover .projects-grid{
+  animation-play-state: paused;
+}
+
+.project{
+  flex: 0 0 480px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,0.96));
+  box-shadow: 0 10px 18px rgba(2,6,23,0.05);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+  @keyframes projectsAutoScroll{
+  0%{
+    transform: translateX(0);
   }
+  100%{
+    transform: translateX(-180px);
+  }
+}
 
   .project:hover{
     transform: translateY(-2px);
@@ -1044,54 +1083,57 @@ nav{
 <section id="projects">
   <h2><span class="section-rule" aria-hidden="true"></span> Projects</h2>
 
-  <div class="projects-grid">
-    
-    <div class="project">
-      <h3>CUBE-SD</h3>
-      <div class="project-media">
-        <img src="Logo/Logo_CUBE_SD.svg" alt="CUBE-SD project logo">
-        <p>
-          CUBE-SD investigates how uncertainty shapes curiosity in human infants and non-human primates, and how this process supports exploration and learning. 
-          By combining behavioural, physiological, and comparative approaches, the project examines whether individuals preferentially attend to information of 
-          intermediate uncertainty, in line with a Goldilocks-like effect. Through a cross-species framework, it aims to clarify the mechanisms through which curiosity 
-          emerges and to better understand its developmental and evolutionary foundations.
-        </p>
+  <div class="projects-scroll">
+    <div class="projects-grid">
+      
+      <div class="project">
+        <h3>CUBE-SD</h3>
+        <div class="project-media">
+          <img src="Logo/Logo_CUBE_SD.svg" alt="CUBE-SD project logo">
+          <p>
+            CUBE-SD investigates how uncertainty shapes curiosity in human infants and non-human primates, and how this process supports exploration and learning. 
+            By combining behavioural, physiological, and comparative approaches, the project examines whether individuals preferentially attend to information of 
+            intermediate uncertainty, in line with a Goldilocks-like effect. Through a cross-species framework, it aims to clarify the mechanisms through which curiosity 
+            emerges and to better understand its developmental and evolutionary foundations.
+          </p>
+        </div>
+        <div class="links">
+          <a class="btn" href="https://adeheering.ulb.be/" target="_blank" rel="noopener noreferrer">Project website</a>
+        </div>
       </div>
-      <div class="links">
-        <a class="btn" href="https://adeheering.ulb.be/" target="_blank" rel="noopener noreferrer">Project website</a>
-      </div>
-    </div>
-    
-    <div class="project">
-      <h3>EmoLearn</h3>
-      <div class="project-media">
-        <img src="Logo/Logo_Emolearn_NoirSansFond.png" alt="EmoLearn project logo">
-        <p>
-          EmoLearn investigates how humour, laughter, and positive emotions influence social learning in infants. 
-          Building on problem-solving tasks in which infants observe either neutral, humorous, or surprising demonstrations, the project 
-          examines the respective roles of positive affect, surprise, attention, arousal, and affiliation in learning. By combining behavioural and physiological 
-          measures, it aims to clarify the mechanisms through which emotional and social contexts support early learning and cognitive development.
-        </p>
-      </div>
-      <div class="links">
-        <a class="btn" href="https://emolearn.parisnanterre.fr/" target="_blank" rel="noopener noreferrer">Project website</a>
-      </div>
-    </div>
 
-    <div class="project">
-      <h3>EvoPLAYBox</h3>
-      <div class="project-media">
-        <img src="Logo/Logo_EvoPlayBox.svg" alt="EvoPLAYBox project logo">
-        <p>
-          Play is a spontaneous and intrinsically motivated behaviour, widely shared across species, that provides a key context for exploration and learning. 
-          This project tests whether non-human primates preferentially engage with play objects of intermediate complexity, a Goldilocks-like effect, and whether this enhances 
-          subsequent learning in a problem-solving task. In a second phase, the same framework will be applied to human infants to compare exploratory strategies across species 
-          and investigate the evolutionary foundations of learning through play.
-        </p>
+      <div class="project">
+        <h3>EmoLearn</h3>
+        <div class="project-media">
+          <img src="Logo/Logo_Emolearn_NoirSansFond.png" alt="EmoLearn project logo">
+          <p>
+            EmoLearn investigates how humour, laughter, and positive emotions influence social learning in infants. 
+            Building on problem-solving tasks in which infants observe either neutral, humorous, or surprising demonstrations, the project 
+            examines the respective roles of positive affect, surprise, attention, arousal, and affiliation in learning. By combining behavioural and physiological 
+            measures, it aims to clarify the mechanisms through which emotional and social contexts support early learning and cognitive development.
+          </p>
+        </div>
+        <div class="links">
+          <a class="btn" href="https://emolearn.parisnanterre.fr/" target="_blank" rel="noopener noreferrer">Project website</a>
+        </div>
       </div>
-            <div class="links">
-        <a class="btn" href="https://adeheering.ulb.be/" target="_blank" rel="noopener noreferrer">Project website</a>
+
+      <div class="project">
+        <h3>EvoPLAYBox</h3>
+        <div class="project-media">
+          <img src="Logo/Logo_EvoPlayBox.svg" alt="EvoPLAYBox project logo">
+          <p>
+            Play is a spontaneous and intrinsically motivated behaviour, widely shared across species, that provides a key context for exploration and learning. 
+            This project tests whether non-human primates preferentially engage with play objects of intermediate complexity, a Goldilocks-like effect, and whether this enhances 
+            subsequent learning in a problem-solving task. In a second phase, the same framework will be applied to human infants to compare exploratory strategies across species 
+            and investigate the evolutionary foundations of learning through play.
+          </p>
+        </div>
+        <div class="links">
+          <a class="btn" href="https://adeheering.ulb.be/" target="_blank" rel="noopener noreferrer">Project website</a>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
