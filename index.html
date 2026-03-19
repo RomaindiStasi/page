@@ -315,8 +315,10 @@ nav{
 /* Projects */
 .projects-scroll{
   width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
   overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
   cursor: grab;
 }
 
@@ -567,9 +569,21 @@ nav{
     align-items: center;
   }
   
-  .projects-grid{
-    grid-template-columns: 1fr;
-  }
+.projects-scroll{
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.projects-grid{
+  gap: 12px;
+  animation: none;
+  width: max-content;
+}
+
+.project{
+  flex: 0 0 420px;
+}
 }
 
 /* Mobile phones and small tablets */
@@ -690,14 +704,23 @@ nav{
     width: 100%;
   }
   
-  .projects-grid{
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  
-  .project{
-    padding: 14px;
-  }
+.projects-scroll{
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  cursor: auto;
+}
+
+.projects-grid{
+  gap: 12px;
+  animation: none;
+  width: max-content;
+}
+
+.project{
+  flex: 0 0 85vw;
+  padding: 14px;
+}
   
   .project .project-media{
     flex-direction: column;
@@ -805,6 +828,10 @@ nav{
     padding: 12px;
     min-height: auto;
   }
+  .project{
+  flex: 0 0 88vw;
+}
+  
 }
 
 /* Scrollbars for horizontal scrolling areas */
