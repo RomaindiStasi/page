@@ -341,7 +341,7 @@ nav{
   gap: 14px;
   width: max-content;
   min-width: 100%;
-  animation: projectsAutoScroll 28s linear infinite;
+  animation: projectsAutoScroll 8s linear infinite;
 }
 
 .projects-scroll:hover .projects-grid{
@@ -358,13 +358,14 @@ nav{
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
-  @keyframes projectsAutoScroll{
+@keyframes projectsAutoScroll{
   0%{
     transform: translateX(0);
   }
   100%{
-    transform: translateX(-180px);
+    transform: translateX(calc(-494px * 3));
   }
+}
 }
 
   .project:hover{
