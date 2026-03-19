@@ -315,7 +315,10 @@ nav{
 /* Projects */
 .projects-scroll{
   width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: auto;
+  scrollbar-width: thin;
   cursor: grab;
 }
 
@@ -337,12 +340,7 @@ nav{
   flex-wrap: nowrap;
   gap: 14px;
   width: max-content;
-  animation: projectsAutoScroll 12s linear infinite;
-  will-change: transform;
-}
-
-.projects-scroll:hover .projects-grid{
-  animation-play-state: paused;
+  will-change: scroll-position;
 }
 
 .project{
@@ -353,15 +351,6 @@ nav{
   background: linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,0.96));
   box-shadow: 0 10px 18px rgba(2,6,23,0.05);
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-}
-
-@keyframes projectsAutoScroll{
-  0%{
-    transform: translateX(0);
-  }
-  100%{
-    transform: translateX(calc(-494px * 3));
-  }
 }
 
 .project:hover{
@@ -574,7 +563,6 @@ nav{
 
 .projects-grid{
   gap: 12px;
-  animation: none;
   width: max-content;
 }
 
@@ -710,7 +698,6 @@ nav{
 
 .projects-grid{
   gap: 12px;
-  animation: none;
   width: max-content;
 }
 
@@ -869,6 +856,7 @@ nav{
     <span class="badge"><span class="badge-dot"></span> Bayesian statistics</span>
   </div>
 </div>
+    </div>
   </header>
 
   <nav>
@@ -1105,8 +1093,8 @@ nav{
 <section id="projects">
   <h2><span class="section-rule" aria-hidden="true"></span> Projects</h2>
 
-  <div class="projects-scroll">
-    <div class="projects-grid">
+  <div class="projects-scroll" id="projectsScroll">
+  <div class="projects-grid" id="projectsGrid">
       
       <!-- Série 1 -->
       <div class="project">
@@ -1894,5 +1882,114 @@ nav{
   <footer>
     <p>&copy; 2025-2026 Romain di Stasi. All rights reserved.</p>
   </footer>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const scrollContainer = document.getElementById("projectsScroll");
+  const grid = document.getElementById("projectsGrid");
+
+  if (!scrollContainer || !grid) return;
+
+  let autoScrollSpeed = 0.6;
+  let isPaused = false;
+  let isUserInteracting = false;
+  let interactionTimeout = null;
+
+  const originalItemsCount = grid.children.length / 2;
+
+  function getLoopWidth() {
+    let width = 0;
+    for (let i = 0; i < originalItemsCount; i++) {
+      width += grid.children[i].offsetWidth;
+    }
+
+    const styles = window.getComputedStyle(grid);
+    const gap = parseFloat(styles.columnGap || styles.gap || 0);
+    width += gap * (originalItemsCount - 1);
+
+    return width;
+  }
+
+ function resetIfNeeded() {
+  const loopWidth = getLoopWidth();
+
+  if (scrollContainer.scrollLeft >= loopWidth * 2 - scrollContainer.clientWidth) {
+    scrollContainer.scrollLeft -= loopWidth;
+  } else if (scrollContainer.scrollLeft <= 0) {
+    scrollContainer.scrollLeft += loopWidth;
+  }
+}
+
+  function startAtMiddle() {
+    const loopWidth = getLoopWidth();
+    scrollContainer.scrollLeft = loopWidth;
+  }
+
+  function autoScroll() {
+    if (!isPaused && !isUserInteracting && window.innerWidth > 1100) {
+      scrollContainer.scrollLeft += autoScrollSpeed;
+      resetIfNeeded();
+    }
+    requestAnimationFrame(autoScroll);
+  }
+
+  scrollContainer.addEventListener("mouseenter", () => {
+    isPaused = true;
+  });
+
+  scrollContainer.addEventListener("mouseleave", () => {
+    isPaused = false;
+  });
+
+  scrollContainer.addEventListener("scroll", () => {
+    if (window.innerWidth <= 1100) return;
+
+    isUserInteracting = true;
+    resetIfNeeded();
+
+    clearTimeout(interactionTimeout);
+    interactionTimeout = setTimeout(() => {
+      isUserInteracting = false;
+    }, 1200);
+  });
+
+  let isDown = false;
+  let startX = 0;
+  let startScrollLeft = 0;
+
+  scrollContainer.addEventListener("mousedown", (e) => {
+    if (window.innerWidth <= 1100) return;
+    isDown = true;
+    isUserInteracting = true;
+    scrollContainer.style.cursor = "grabbing";
+    startX = e.pageX;
+    startScrollLeft = scrollContainer.scrollLeft;
+  });
+
+  window.addEventListener("mouseup", () => {
+    if (!isDown) return;
+    isDown = false;
+    scrollContainer.style.cursor = "grab";
+
+    clearTimeout(interactionTimeout);
+    interactionTimeout = setTimeout(() => {
+      isUserInteracting = false;
+    }, 1200);
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    if (!isDown || window.innerWidth <= 1100) return;
+    const dx = e.pageX - startX;
+    scrollContainer.scrollLeft = startScrollLeft - dx;
+    resetIfNeeded();
+  });
+
+  window.addEventListener("resize", () => {
+    startAtMiddle();
+  });
+
+  startAtMiddle();
+  requestAnimationFrame(autoScroll);
+});
+</script>
 </body>
 </html>
