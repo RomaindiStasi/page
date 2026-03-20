@@ -312,6 +312,45 @@ nav{
     color: var(--text);
   }
 
+/*Scroll indicators*/
+
+.scroll-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  opacity: 0.8;
+  user-select: none;
+}
+
+.scroll-indicator .arrow {
+  font-size: 18px;
+}
+
+.scroll-indicator .left {
+  animation: pulse-left 1.5s infinite;
+}
+
+.scroll-indicator .right {
+  animation: pulse-right 1.5s infinite;
+}
+
+@keyframes pulse-left {
+  0% { opacity: 0.3; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(-4px); }
+  100% { opacity: 0.3; transform: translateX(0); }
+}
+
+@keyframes pulse-right {
+  0% { opacity: 0.3; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(4px); }
+  100% { opacity: 0.3; transform: translateX(0); }
+}
+
+    
 /* Projects */
 .projects-scroll{
   width: 100%;
@@ -383,6 +422,7 @@ nav{
   flex-wrap: wrap;
 }
 
+    
 /* Project media (image + text) */
 .project .project-media{
   display: flex;
@@ -1093,9 +1133,15 @@ nav{
 <section id="projects">
   <h2><span class="section-rule" aria-hidden="true"></span> Projects</h2>
 
+  <div class="scroll-indicator" aria-hidden="true">
+    <span class="arrow left">←</span>
+    <span class="text">Scroll</span>
+    <span class="arrow right">→</span>
+  </div>
+
   <div class="projects-scroll" id="projectsScroll">
-  <div class="projects-grid" id="projectsGrid">
-      
+    <div class="projects-grid" id="projectsGrid">
+
       <!-- Série 1 -->
       <div class="project">
         <h3>CUBE-SD</h3>
