@@ -1,1 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Activities — Romain di Stasi</title>
 
+  <style>
+  :root{
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: rgba(15, 23, 42, 0.10);
+    --shadow: 0 18px 60px rgba(2, 6, 23, 0.12);
+    --shadow-soft: 0 10px 28px rgba(2, 6, 23, 0.08);
+
+    --accent: #2563eb;
+    --accent-2: #0ea5e9;
+
+    --radius: 18px;
+    --radius-sm: 14px;
+    --max: 1040px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html{
+    scroll-behavior: smooth;
+    min-height: 100%;
+  }
+
+  body{
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    color: var(--text);
+
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(37, 99, 235, 0.12), transparent 60%),
+      radial-gradient(1200px 600px at 80% 0%, rgba(14, 165, 233, 0.08), transparent 55%),
+      url("https://raw.githubusercontent.com/RomaindiStasi/page/main/Background_website2.svg"),
+      var(--bg);
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+  a:focus-visible{
+    outline: 3px solid rgba(37,99,235,0.35);
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+
+  /* Header */
+  header{
+    padding: 64px 20px 24px;
+  }
+
+  .hero{
+    max-width: var(--max);
+    margin: 0 auto;
+    background: linear-gradient(135deg, #0b1220 0%, #111b33 55%, #0b1220 100%);
+    color: #fff;
+    border-radius: calc(var(--radius) + 8px);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,0.10);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero::before{
+    content:"";
+    position: absolute;
+    inset:-2px;
+    background:
+      radial-gradient(900px 380px at 15% 20%, rgba(37,99,235,0.32), transparent 60%),
+      radial-gradient(700px 320px at 85% 10%, rgba(14,165,233,0.22), transparent 55%),
+      radial-gradient(600px 300px at 70% 90%, rgba(37,99,235,0.16), transparent 60%);
+    pointer-events: none;
+    opacity: 0.95;
+  }
+
+  .hero-inner{
+    position: relative;
+    padding: 42px 30px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero h1{
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .hero p{
+    color: rgba(255,255,255,0.86);
+    font-size: 1.15rem;
+    font-weight: 450;
+    max-width: 80ch;
+    margin: 0 auto;
+  }
+
+  .hero-badges{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.92);
+    font-size: 0.95rem;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+  }
+
+  .badge-dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.16);
+  }
+
+  /* Nav */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(245, 247, 251, 0.78);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .nav-inner a{
+    padding: 10px 12px;
+    border-radius: 999px;
+    color: #0b1220;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .nav-inner a:hover{
+    background: rgba(37,99,235,0.10);
+    transform: translateY(-1px);
+    color: #0b1220;
+    text-decoration: none;
+  }
+
+  /* Layout */
+  .container{
+    max-width: var(--max);
+    margin: 26px auto 60px;
+    padding: 0 14px;
+    flex: 1;
+  }
+
+  section{
+    margin-top: 18px;
+    padding: 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+  }
+
+  section h2{
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-rule{
+    height: 10px;
+    width: 10px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 0 5px rgba(37,99,235,0.10);
+  }
+
+  section h3{
+    margin-top: 22px;
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .muted{ color: var(--muted); }
+
+  section p{ margin-bottom: 12px; }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, #ffffff, #fbfcfe);
+    font-weight: 700;
+    color: #0b1220;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+    box-shadow: 0 6px 16px rgba(2,6,23,0.06);
+  }
+
+  .btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(2,6,23,0.10);
+    border-color: rgba(37,99,235,0.25);
+    text-decoration: none;
+  }
+
+  .pill-list{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    padding-left: 0;
+  }
+
+  .pill{
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(37,99,235,0.18);
+    background: rgba(37,99,235,0.06);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .item{
+    margin-top: 12px;
+    padding: 14px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: #fbfcfe;
+    box-shadow: 0 10px 18px rgba(2,6,23,0.05);
+  }
+
+  .item strong{
+    color: #0b1220;
+    font-weight: 750;
+  }
+
+  .item em{
+    color: var(--muted);
+  }
+
+  .item p{
+    margin-top: 8px;
+  }
+
+  ul.standard-list{
+    margin-left: 22px;
+    margin-bottom: 14px;
+  }
+
+  ul.standard-list li{
+    margin-bottom: 8px;
+  }
+
+  .meta{
+    color: var(--muted);
+    font-size: 0.98rem;
+    margin-bottom: 16px;
+  }
+
+  footer{
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px){
+    .hero h1{ font-size: clamp(1.5rem, 5vw, 2rem); }
+    .hero p{ font-size: 0.95rem; }
+    section{ padding: 20px 16px; }
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1>Research Activities</h1>
+          <p>Postdoctoral, doctoral, and pre-doctoral research in developmental psychology, comparative cognition, social learning, and methodological innovation.</p>
+        </div>
+
+        <div class="hero-badges" aria-label="Key Themes">
+          <span class="badge"><span class="badge-dot"></span> Infant Curiosity</span>
+          <span class="badge"><span class="badge-dot"></span> Social Learning</span>
+          <span class="badge"><span class="badge-dot"></span> Comparative Cognition</span>
+          <span class="badge"><span class="badge-dot"></span> Physiology & Emotion</span>
+          <span class="badge"><span class="badge-dot"></span> Behavioral & Bayesian Methods</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#postdoctoral">Postdoctoral Research</a>
+      <a href="#doctoral">Doctoral Research</a>
+      <a href="#predoc-choir">Pre-doctoral Research (Choir)</a>
+      <a href="#predoc-cockatiels">Pre-doctoral Research (Cockatiels)</a>
+      <a href="#skills">Technical Skills</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <section id="postdoctoral">
+      <h2><span class="section-rule" aria-hidden="true"></span> Postdoctoral Research: Do predictable and unpredictable environments differentially influence infant curiosity and learning?</h2>
+
+      <p class="meta"><strong>Postdoctoral fellowship</strong>, February 1, 2025 – present, Center for Research in Cognition &amp; Neuroscience (CRCN). <strong>Supervisor:</strong> Adélaïde de Heering.</p>
+
+      <p>
+        My current research focuses on the relationship between uncertainty, surprise, arousal, and curiosity in infancy. This work builds on the studies by Kidd et al. (1, 2), which showed that 8-month-old infants, when exposed to sequences of images or sounds, attend more to sequences that are neither too predictable nor too uncertain, a phenomenon referred to by the authors as the <strong>Goldilocks effect</strong>. This research program is embedded within a broader project called <strong>CUBE-SD</strong>, which is organized into three axes. I have secured funding for the first axis and am currently seeking funding for the other two.
+      </p>
+
+      <p>
+        In the first axis (<strong>Axis 1</strong>), funded by a Wallonie-Bruxelles International (WBI) excellence fellowship, I examine how environmental predictability influences the curiosity of infants aged 18 to 24 months, as well as the mechanisms underlying the relationship between uncertainty and curiosity. This axis is divided into two studies.
+      </p>
+
+      <h3>Study 1</h3>
+      <p>
+        We investigate whether the Goldilocks effect observed by Kidd et al. (1, 2) in passive situations, in which infants are exposed to sequences and gaze behaviors are analyzed, can be generalized to a problem-solving task in which the infant actively manipulates the environment.
+      </p>
+
+      <p>
+        In this experiment, infants are exposed to four different cubes, each with one button on every face except one, so that the cube can rest stably on the table (see GitHub link here). Each cube produces sounds when the buttons are pressed, but with different probabilities: one produces a sound after every press, another one after half of the presses, another after one out of eight presses, and a final cube never produces any sound.
+      </p>
+
+      <p>
+        The experiment proceeds as follows: an experimenter sits facing the infant and demonstrates how to use the cube by pressing the top button eight times before handing the now silent cube to the infant. The experimenter then leaves the room and allows the infant to explore the cube for one minute. The experimenter then returns with another randomly selected cube, repeats the demonstration by pressing the top face eight times, hands the silent cube to the infant, and leaves the room again. This procedure is repeated until all four cubes have been presented. These differences in probability make it possible to manipulate infants’ uncertainty (see Figure 1 for an illustration).
+      </p>
+
+      <p>
+        For each infant, the cubes are presented in random order in order to avoid an order effect. During the phase in which the infant explores the cube alone, we measure curiosity on the basis of (i) the total number of button presses and (ii) button-press strategies, distinguishing exploitation (repetition of pressing the same button) from exploration (alternation between buttons (3)).
+      </p>
+
+      <p>
+        In line with the results reported by Kidd et al. (1, 2), we expected infants to press more on the cube producing a sound one out of two times than on the other cubes. The analyses indicate that infants press more on the buttons of the silent cube (0/8). However, among the cubes that do produce sounds, button presses are most frequent for the 4/8 cube, followed by the 1/8 cube, and then the 8/8 cube. These findings suggest that the absence of stimulation elicits the highest level of curiosity, but that when sounds are present, the cube with intermediate predictability (4/8) is explored the most. When distinguishing between exploitation and exploration behaviors, the highest levels of exploration and the lowest levels of exploitation are observed for the 4/8 cube. Taken together, these results suggest that the Goldilocks effect can also be observed in a task in which the infant actively explores the environment.
+      </p>
+
+      <h3>Study 2</h3>
+      <p>
+        We aim to understand how arousal, surprise, and attention modulate the relationship between predictability and curiosity in infants. To do so, we will use the same procedure as in Study 1 while adding physiological and behavioral measures within a multidimensional framework.
+      </p>
+
+      <p>
+        Physiological measures will be collected using an <strong>Empatica Embrace Plus</strong> bracelet placed on the infants’ ankle, allowing us to extract heart rate variability and electrodermal activity during the experiment, indexing attention (4) and arousal (5), respectively.
+      </p>
+
+      <p>
+        In parallel, we will analyze infants’ facial expressions using an automated analysis algorithm currently being developed in Python, <strong>iFACE</strong> (Infant Facial Analysis for the Classification of Emotion; see GitHub link here). This tool is intended to automatically detect several facial expressions, including surprise, from video recordings, extending earlier work I conducted during my PhD, in which I implemented algorithms in the BabyFace Reader software (Noldus®) to automatically identify surprise facial expressions in infants aged 14 to 22 months (5). See also the doctoral research section for further information.
+      </p>
+
+      <p>
+        Beyond this infant-focused axis, the CUBE-SD project includes two additional axes.
+      </p>
+
+      <h3>Axis 2</h3>
+      <p>
+        The objective of the second axis is to determine whether the Goldilocks effect is specific to humans or whether it constitutes a more general adaptation that may also be observed in other non-human primates. To this end, we are currently establishing partnerships with several European zoos, including Pairi Daiza (Brugelette, Belgium), for which a prototype cube designed to withstand the strength of non-human primates has already been developed (see GitHub link here). In this component, we aim to test several non-human primate species in order to trace the phylogeny of the Goldilocks effect.
+      </p>
+
+      <h3>Axis 3</h3>
+      <p>
+        In the third axis, we plan to test a theoretical model of curiosity derived from the results of Axes 1 and 2. This model will first be formalized using structural equation modeling and then simulated on an artificial intelligence system using reinforcement learning methods; see (6–8) for a detailed description of this type of simulation.
+      </p>
+
+      <p>
+        Within this framework, several European funding applications have been submitted in order to develop this research program, including an application to the Marie Skłodowska-Curie Postdoctoral Fellowship Action (MSCA-PF, not funded), as well as an application to the IRIS COFUND programme, also funded under the Marie Skłodowska-Curie Actions (MSCA), for which a decision is expected in June 2026. Dr Quentin Delhaye and Dr Claire Kabdebon collaborate with us on this project, and Prof. Adélaïde de Heering and Prof. Tom Lenaerts are co-supervisors of these two funding applications.
+      </p>
+
+      <p>
+        Finally, one article based on Study 1 is currently being written, with submission planned for July 2026. In total, two articles are planned for Axis 1 (one for each study), and two additional articles are planned for Axes 2 and 3.
+      </p>
+
+      <p>
+        In parallel with this project, I am also involved in the research of <strong>Romane Boulanger</strong>, a PhD student supervised by Prof. Adélaïde de Heering, in collaboration with Louise Goupil. This work aims to evaluate whether heart rate variability (HRV) and EEG theta waves can serve as reliable indicators of attention in a social learning context (Project: ). At least one article is planned within the framework of this research, for which I am second author.
+      </p>
+
+      <p>
+        In addition, I am working with <strong>Dr Bianca Colleoni</strong>, with whom we submitted an <strong>Action Blanche</strong> funding application (<strong>EvoPLAYBox project</strong>) in order to assess the Goldilocks effect in a play context in non-human primates, for which collaboration requests with several zoos across Europe are currently underway.
+      </p>
+
+      <h3>Postdoctoral collaborations (N = 8)</h3>
+      <div class="item">
+        <p><strong>Prof. Adélaïde de Heering, Dr Bianca Colleoni, Romane Boulanger</strong>. Center for Research in Cognition &amp; Neuroscience (CRCN), Université libre de Bruxelles (ULB), Brussels, Belgium.</p>
+        <p><strong>Dr Quentin Delhaye</strong>. ECAM Brussels Engineering School, Brussels, Belgium.</p>
+        <p><strong>Dr Claire Kabdebon</strong>. CNRS, CRPN (UMR 7077), Aix-Marseille Université, Marseille, France.</p>
+        <p><strong>Dr Louise Goupil</strong>. CNRS, Université Grenoble Alpes, LPNC, Grenoble, France.</p>
+        <p><strong>Prof. Tom Lenaerts</strong>. Machine Learning Group, Université libre de Bruxelles (ULB), Brussels, Belgium.</p>
+        <p><strong>Dr Francesco Poli</strong>. MRC Cognition and Brain Sciences Unit, University of Cambridge.</p>
+      </div>
+    </section>
+
+    <section id="doctoral">
+      <h2><span class="section-rule" aria-hidden="true"></span> Doctoral Research: Roles of humor, laughter, and positive emotions in infant social learning</h2>
+
+      <p class="meta"><strong>PhD</strong>, January 1, 2021 – December 12, 2024, Laboratoire Éthologie Cognition Développement (LECD), Université Paris Nanterre, Nanterre, France. <strong>Supervisors:</strong> Rana Esseily &amp; Lauriane Rat-Fischer.</p>
+
+      <p>
+        During my PhD, I studied the influence of humor, laughter, and positive emotions on the social learning of infants aged 14 to 22 months. This research project was based on the study by Esseily et al. (9), which showed that laughter and/or humor could improve the learning of 18-month-old infants in a problem-solving task. In their study, infants had to retrieve an out-of-reach toy using a rake-like tool after an experimenter demonstrated how to use it. This demonstration could be performed either neutrally or humorously, and it was repeated eight consecutive times in front of the infant. In the humorous demonstration, each time the experimenter retrieved the toy, they threw it over their shoulder in a cheerful voice while saying “hop.” The neutral demonstration was identical to the humorous one, except for this throwing movement. In their study, the authors showed that infants performed better when they laughed than when they did not laugh or when they were exposed to the neutral demonstration.
+      </p>
+
+      <p>
+        This study therefore suggested a potential effect of humor on learning, but several questions remained open. Was it humor per se, or rather laughter, surprise, a central component of humor (10–12), or more generally positive emotions, that produced such an effect? In addition, what mechanism or mechanisms might explain this relationship between humor and learning?
+      </p>
+
+      <p>
+        Humor is by nature a multidimensional phenomenon. It involves, in particular, a violation of expectations, which generates surprise (10–12). When incongruity is perceived as amusing, it elicits positive emotions such as mirth and joy (13). Beyond this, humor triggers a specific behavioral response, laughter, which is associated with the production of endorphins in the brain (14). These endorphins reinforce well-being and promote social affiliation (15, 16). Positive emotions, surprise, and laughter also generate measurable physiological activity, often referred to in the literature as physiological arousal. This physiological activation may facilitate information retention and learning (17, 18). In this context, my PhD aimed to answer three questions:
+      </p>
+
+      <ul class="standard-list">
+        <li>Does humor improve learning because it creates surprise, because it involves laughter, or more generally because it generates positive emotions?</li>
+        <li>What role might physiological arousal and attention play in this process?</li>
+        <li>Can surprise, in the absence of humor but in a similar social situation, induce comparable effects on toddlers’ learning, and what are the best behavioral and physiological markers for identifying surprise in a social situation?</li>
+      </ul>
+
+      <p>
+        In parallel, within this project, we also evaluated the role that affiliation generated by humor might play, since humor involves the creation of a specific social bond between the person attempting to make someone laugh and the person who laughs, and this bond may also motivate infants to learn. In other words, when an experimenter makes an infant laugh and appears to be a positive social partner, the infant may be more motivated to learn from that person (19).
+      </p>
+
+      <p>
+        To address these questions, my PhD was structured around three main axes, to which a fourth axis was added in parallel.
+      </p>
+
+      <h3>Axis 1</h3>
+      <p>
+        Axis 1 aimed to examine the effect of humor on infants’ social learning and to identify the factors that might explain this effect, notably attention, surprise, positive emotions, and physiological arousal. To do so, we conducted a study on 119 infants aged 14 to 22 months, of whom 88 were included in the final analyses, using the same procedure as that employed by Esseily et al. (9), in which infants were exposed to either humorous or neutral demonstrations. This allowed us, in particular, to assess whether the results of the original study could be generalized to ages other than 18 months.
+      </p>
+
+      <p>
+        To evaluate whether infants were more surprised in the humorous than in the neutral demonstration, we used social looking behaviors, which are reliable indicators of surprise (20, 21). Finally, to identify the influence of physiological arousal, we used a wearable device (Empatica E4®), which we placed on the infants’ left ankle and which allowed us to measure different physiological variables non-invasively, such as heart rate variability (HRV) and electrodermal activity (EDA). In this study, we chose to focus on heart rate variability because it not only allows us to assess infants’ physiological arousal, but also, when combined with social looks, the attention infants devote to the demonstration (4, 5).
+      </p>
+
+      <p>
+        We showed that, regardless of whether they laughed during the demonstration, infants exposed to the humorous demonstration performed better than those exposed to the neutral demonstration, contrary to what had been observed in the original study. We were also able to identify that surprise was probably one of the mechanisms contributing to this improvement. In addition, the infants who performed best were those showing the highest HRV, suggesting that this improvement may be linked to reduced stress and/or increased attention (see (22, 23) for the relationship between increased HRV, vagal activity, and attention).
+      </p>
+
+      <p>
+        These findings were published in <strong>Cognitive Development</strong> in 2025, with me as first author.
+      </p>
+
+      <h3>Axis 2</h3>
+      <p>
+        Axis 2 had a methodological objective. In order to strengthen the hypothesis proposed in the first article, namely that surprise might play a central role in the effect of humor on learning, we wanted to determine whether surprise alone, in a social context but without humor, could produce effects similar to those observed with humor. However, before directly testing this hypothesis, it was necessary to identify the appropriate indicators of surprise in a social context such as ours.
+      </p>
+
+      <p>
+        Surprise is relatively easy to evaluate in classical violation-of-expectation paradigms because they generally rely on looking times, that is, the duration of gazes directed toward an unexpected event (e.g., 24, 25). In a social situation such as ours, however, this measure becomes more difficult to use. During the demonstration, the infant may turn their head and rapidly alternate gazes between the tool, the toy, and the experimenter, which makes the interpretation of looking times less informative.
+      </p>
+
+      <p>
+        To address this question, we included 99 infants aged 14 to 22 months in a paradigm similar to that used in Axis 1. Infants were exposed either to a neutral demonstration or to a surprising demonstration. The demonstration was repeated five times so that we could examine changes in infants’ responses across repetitions, particularly habituation effects, since surprise is by definition a transient reaction that tends to decrease when the unexpected event is repeated (26).
+      </p>
+
+      <p>
+        Within this framework, we adopted, as in Axis 1, a multidimensional approach. We measured several infant behaviors during the demonstration, notably social looks directed toward the experimenter. In parallel, we used automated procedures by analyzing infants’ facial expressions with the BabyFace Reader software (Noldus®), into which we implemented three algorithms to automatically identify the facial expression of surprise. We also collected physiological measures using an Empatica E4® wearable device, which allowed us to measure heart rate, electrodermal activity, and motor activity.
+      </p>
+
+      <p>
+        Analyses were conducted using Bayesian mixed-effects models and factorial analyses (PCA). The results show that infants look significantly longer at the experimenter in the surprising condition than in the neutral condition, indicating that social looks constitute a robust indicator of surprise in this social context. This result is consistent with the dynamics observed across repetitions: differences between conditions appear mainly during the first demonstrations, when the unexpected event occurs for the first time and surprise is expected to be strongest. Heart rate follows a similar profile and also appears to be a physiological correlate of surprise. By contrast, surprise facial expressions do not clearly distinguish the conditions and tend to remain stable across repetitions, suggesting that they reflect sustained attention more than a transient surprise reaction. Interestingly, electrodermal activity is higher in the neutral condition than in the surprising condition, a profile that increases across repetitions and suggests that it reflects a state of arousal linked more to fatigue or frustration than to surprise itself.
+      </p>
+
+      <p>
+        These results were submitted to <strong>Acta Psychologica</strong> in December 2025, with me as first author. The article is currently under revision and available as a preprint on SSRN and PsyArXiv.
+      </p>
+
+      <h3>Axis 3</h3>
+      <p>
+        Axis 3 aimed to assess whether surprise alone is sufficient to explain the relationship between humor and learning, or whether other associated mechanisms are also involved. As in our first study, we explored in particular whether physiological arousal might constitute a mechanism explaining why humor and/or surprise is more effective in enhancing infant learning.
+      </p>
+
+      <p>
+        To do so, we tested 77 infants aged 17 to 24 months, of whom 60 were included in the final analysis. As in Axis 1, infants had to retrieve an out-of-reach toy after an experimenter demonstrated how to use a tool. Infants were assigned to three groups, differing only in the nature of the demonstration. For two groups, we reproduced the neutral and humorous demonstrations described in Axis 1. As before, the humorous condition consisted of throwing the toy over one’s shoulder after retrieving it, whereas the neutral condition did not include this movement. These demonstrations were, however, repeated five times instead of eight.
+      </p>
+
+      <p>
+        In the third group, we implemented a surprising but non-humorous demonstration. This demonstration resembled the neutral one, except for the fourth repetition, during which the experimenter threw the toy over their shoulder. This choice was based on the fact that in two previous studies (4, 9), we had observed that infants generally started to laugh during the humorous demonstration only from the third or fourth repetition onward. We therefore hypothesized that it is the repetition of the throwing action that is perceived as funny. By performing this action only once, we expected to induce surprise without generating humor. After the demonstration, infants were tested for one minute with the tool. As in Axes 1 and 2, we measured infants’ heart rate during the demonstration using the Empatica E4® bracelet.
+      </p>
+
+      <p>
+        Before evaluating infants’ learning performance, however, it was necessary to validate our surprising condition in order to verify that it did indeed produce surprise without humor. To do so, we used social looks, which had been identified as reliable indicators of surprise in our Axis 2 study. We therefore focused our analyses on the fourth repetition of the demonstration in the three conditions, which corresponded respectively to the surprising event in the surprise condition, the fourth humorous event, and the fourth neutral event. We observed that infants looked more at the experimenter in the surprising condition than in the other conditions, including the humorous condition, in which the fourth repetition probably no longer elicited surprise. In addition, none of the infants in the surprising condition laughed during the demonstration, whereas 7 out of the 20 infants in the humorous condition did laugh. Thus, the surprising condition did indeed generate surprise without humor.
+      </p>
+
+      <p>
+        When we then assessed learning outcomes, we showed that infants exposed to the humorous demonstration performed better than those in the neutral and surprising conditions. They also displayed more looks toward the experimenter and a stronger increase in heart rate, indicating a higher level of activation. Taken together, these findings show that surprise alone is not sufficient to explain why humor improves toddler learning and suggest that this effect may be partly related to the increase in arousal observed in the humorous condition relative to the two other conditions.
+      </p>
+
+      <p>
+        These results are the subject of an article currently being written, with submission to <strong>Infancy</strong> planned for July 2026, and for which I am first author.
+      </p>
+
+      <h3>Axis 4</h3>
+      <p>
+        In Axis 4 of this project, we attempted to understand whether the fact that humor improves toddler learning could partly be explained by the social bond it creates. Indeed, if humor improves learning, this may partly be because when a social bond is formed with the infant, the infant is more motivated to learn from us (19).
+      </p>
+
+      <p>
+        To address this question, we tested 70 infants aged 17 to 19 months, of whom 60 were included in the final analysis. Infants were assigned to three experimental groups of 20 participants each: an affiliated condition, a non-affiliated condition, and a control condition. In all groups, infants first observed a humorous demonstration of how to use a tool to retrieve an out-of-reach toy. The experimental manipulation then concerned the identity of the person present during the test. In the affiliated condition, the experimenter who had performed the demonstration remained with the infant during the test. In the non-affiliated condition, she was replaced by another experimenter with whom the infant had not previously interacted. Finally, in the control condition, no experimenter was present during the test and the task was administered only by the parent.
+      </p>
+
+      <p>
+        The results show that infants perform significantly better when the experimenter with whom they shared the humorous interaction remains present during the test, compared with the condition in which a new experimenter is introduced. By contrast, no significant difference is observed between the affiliated condition and the control condition, in which only the parent is present during the test. In addition, gaze analyses show that infants look more often and for longer at the new experimenter in the non-affiliated condition, suggesting a form of social uncertainty or a disruption in the continuity of the interaction. Finally, whether infants laughed during the humorous demonstration did not predict their learning performance.
+      </p>
+
+      <p>
+        Overall, these findings suggest that humor facilitates infant social learning not only by generating positive emotions, but also by creating an affiliative bond with the experimenter, which appears to play a key role in the transmission of learned behaviors.
+      </p>
+
+      <p>
+        These findings were the subject of an article submitted to <strong>Acta Psychologica</strong> in August 2025, on which I am third author.
+      </p>
+
+      <p>
+        Across all of these studies, we also took inter-individual differences into account by examining the role of infants’ temperamental characteristics using the ECBQ questionnaire (Early Childhood Behavior Questionnaire, (27)), in order to determine whether certain pre-existing differences might modulate the relationship between humor and learning. Although these data have not yet been published, they are expected to be the subject of an additional article combining infants from all of the studies (N = 285 infants, corresponding to the total number of participants recruited during my PhD).
+      </p>
+
+      <h3>Doctoral collaborations (N = 4)</h3>
+      <div class="item">
+        <p><strong>Prof. Rana Esseily, Dr Lauriane Rat-Fischer, Dr Anne Bobin Begue, Dr Fabien Cerrotti</strong>. Université Paris Nanterre, Nanterre, France.</p>
+      </div>
+    </section>
+
+    <section id="predoc-choir">
+      <h2><span class="section-rule" aria-hidden="true"></span> Pre-doctoral Research: Impact of choral singing on prosocial behavior and academic outcomes</h2>
+
+      <p class="meta"><strong>Master’s internship (Year 2) in Psychology and Human Ethology</strong>, Laboratoire Éthologie Cognition Développement (LECD), Université Paris Nanterre, Nanterre, France. <strong>Supervisors:</strong> Carla Aimé Jubin, Dalila Bovet &amp; Rana Esseily.</p>
+
+      <p>
+        During my master’s degree, I worked on a longitudinal research project designed to evaluate the effects of intensive choral singing on the development of children aged 8 to 10 years, particularly on their academic skills, well-being, and prosocial behaviors. This project was part of the EVE programme (“Exister avec la Voix Ensemble”), developed in collaboration with the Philharmonie de Paris, in which children attending schools in priority education areas (REP+) received four hours of choral singing per week over three consecutive years.
+      </p>
+
+      <p>
+        Several studies suggest that musical practice may promote academic skills (e.g., 28, 29), well-being (e.g., 30, 31), and prosocial behaviors (32, 33). We therefore assessed whether, in a school setting and over several years, a regular choral singing activity taking place during school hours could improve children’s academic skills, well-being at school, and their social interactions or propensity to help, share, and cooperate (i.e., prosocial behaviors).
+      </p>
+
+      <p>
+        The study involved 175 children followed over three years in three schools. My internship took place during the second year of the project, but I also contributed to data collection and processing at other stages of the project, notably during my first year of master’s training and at the beginning of my PhD. The 175 children were distributed across three schools: two schools were part of the EVE project, in which children practiced choral singing four hours per week, and one school was not part of the programme and did not offer any particular activity.
+      </p>
+
+      <p>
+        Academic skills were assessed using the <strong>BMT-i battery</strong>, commonly used in psychology and speech therapy to measure verbal memory, working memory, spelling, and mathematics performance (34). This battery was adapted to the child’s school level from one year to the next, from CE2 to CM2.
+      </p>
+
+      <p>
+        Well-being was assessed using questionnaires validated in the literature (35–37).
+      </p>
+
+      <p>
+        In order to assess prosocial behaviors, we evaluated children at school through three tasks, which differed from one year to the next in order to avoid retest effects. These tasks were video-recorded and then coded so that we could analyze in detail the behaviors produced by the children, such as helping initiatives, verbal interactions, looks directed toward the partner, and certain markers of social coordination.
+      </p>
+
+      <p>
+        Our results indicate that regular choral singing practice is associated with improved verbal memory. By contrast, no conclusive effect was observed on working memory, spelling, or mathematics performance. Beyond cognitive skills, choral singing appears to improve children’s quality of life by increasing well-being and social interactions (for instance smiles, eye contact, and verbal exchanges with peers during cooperative tasks). However, no significant effect was observed on cooperation itself, defined as working together to solve a problem.
+      </p>
+
+      <p>
+        These findings contribute to the ongoing debate on transfer of learning, suggesting that benefits may be specific to certain domains, notably verbal memory, which is consistent with the conclusions of recent meta-analyses. Nevertheless, our results also highlight the important contribution of choral singing to children’s well-being and social functioning. Implications for future research are discussed in our article.
+      </p>
+
+      <p>
+        This internship enabled me to write an article as co-first author with Dr Carla Aimé-Jubin, which is expected to be submitted to <strong>Cognition</strong> by April 2026. A preprint will also be deposited on PsyArXiv and SSRN, in line with good open science practices (and FAIR practices, (38)).
+      </p>
+
+      <h3>Pre-doctoral collaborations (N = 5)</h3>
+      <div class="item">
+        <p><strong>Dr Mathilde Le Covec, Dr Charlotte de Mouzon, Prof. Dalila Bovet, Prof. Gerard Leboucher</strong>. Université Paris Nanterre, Nanterre, France.</p>
+        <p><strong>Dr Caroline Gilbert</strong>. École Nationale Vétérinaire d'Alfort, Maisons-Alfort, France.</p>
+        <p><strong>Prof. Shigeru Watanabe</strong>. Centre for Advanced Research on Logic and Sensibility, Keio University, Tokyo, Japan.</p>
+      </div>
+    </section>
+
+    <section id="predoc-cockatiels">
+      <h2><span class="section-rule" aria-hidden="true"></span> Pre-doctoral Research: Study of musical preferences in cockatiels (<em>Nymphicus hollandicus</em>)</h2>
+
+      <p class="meta"><strong>Master’s Year 1 internship in ethology</strong>. April 1, 2019 to May 31, 2019, and June 17 to July 5, 2019. Laboratoire Éthologie Cognition Développement (LECD), Université Paris Nanterre, Nanterre, France. <strong>Supervisors:</strong> Mathilde Le Covec &amp; Dalila Bovet.</p>
+
+      <p>
+        During these two master’s internships, lasting respectively two months and one month full time, I took part in one experiment and conducted two others in order to assess whether cockatiels had musical preferences. In line with Watanabe’s theory (39), only species capable of vocal learning, that is, learning new sounds through imitation, would be capable of showing sensitivity to certain musical structures rather than others, and therefore of having musical preferences.
+      </p>
+
+      <p>
+        Several studies are consistent with this idea: some authors show that Java sparrows (<em>Lonchura oryzivora</em>) (40) or African grey parrots (<em>Psittacus erithacus</em>) (41), two vocal-learning species, may show such preferences, whereas non-human primates with more limited vocal-learning abilities may not (e.g., 42–44). We therefore sought to test whether this hypothesis might also apply to cockatiels (<em>Nymphicus hollandicus</em>).
+      </p>
+
+      <p>
+        To do so, we trained 13 birds using positive conditioning to peck at a touchscreen displaying shapes that, when pecked, triggered music. Once they had pecked more than 200 times on the two shapes in total, we reversed the music associated with the shapes. Then, after 200 additional pecks, we reversed the positions of the shapes in order to assess preference for the music rather than for the shapes or for the right/left side.
+      </p>
+
+      <p>
+        In a first experiment conducted by my collaborator Léa Bouet, cockatiels were given a choice between two types of music, classical music and rock music. In another experiment, we used the same music with the same rhythm, but one version had been computer-modified to make it dissonant. In this way, we were able to assess whether individuals’ musical preferences were driven by rhythm or by the arrangement of notes. Finally, in a third experiment, we exposed cockatiels to two different types of music, rap and metal, in order to test whether their musical preferences went beyond a highly contrasted rhythmic difference such as that between rock and classical music.
+      </p>
+
+      <p>
+        In this work, I also performed all the statistical analyses and contributed to writing the article. This study was published with me as second author in the journal <strong>Animal</strong> in December 2024 (see section 1.4.3). In parallel, I also had the opportunity to carry out the statistical analyses for Charlotte de Mouzon’s research on cat-directed speech, in which we showed that when people address their cat, they tend to adopt a higher fundamental frequency (F0) than when they address an adult, in a manner similar to motherese. I was third author of this paper, published in 2022 in <strong>Behavioural Processes</strong> (see section 1.4.1).
+      </p>
+
+      <p>
+        Detailed descriptions of my other master’s or undergraduate internships are available in my full Europass CV here.
+      </p>
+    </section>
+
+    <section id="skills">
+      <h2><span class="section-rule" aria-hidden="true"></span> Technical Skills</h2>
+
+      <h3>Programming</h3>
+      <ul class="pill-list">
+        <li class="pill">R</li>
+        <li class="pill">Python</li>
+        <li class="pill">HTML5</li>
+        <li class="pill">CSS3</li>
+        <li class="pill">Basic C++ (Arduino)</li>
+        <li class="pill">Bash (Linux)</li>
+        <li class="pill">PowerShell (Windows)</li>
+      </ul>
+
+      <h3>Behavioral analysis software</h3>
+      <div class="item">
+        <p><strong>Noldus, The Observer XT®</strong> – for video-based and hand-coded behavioral analyses.</p>
+        <p><strong>BORIS (Behavioral Observation Research Interactive Software)</strong> – open-source tool for behavioral coding.</p>
+        <p><strong>Noldus, FaceReader® and Baby FaceReader®</strong> – for automated analysis of facial expressions in adults and infants, respectively.</p>
+        <p><strong>Inkscape</strong> – for creating vector graphics and figures.</p>
+        <p><strong>LimeSurvey</strong> – for creating questionnaires.</p>
+      </div>
+
+      <h3>Frequentist and Bayesian statistical analysis skills</h3>
+      <div class="item">
+        <p><strong>Bayesian models:</strong> experience with Bayesian modeling using the <em>brms</em> package in R.</p>
+        <p><strong>Frequentist models:</strong> proficiency with linear models (LM), generalized linear models (GLM), linear mixed models (LMM), generalized linear mixed models (GLMM), and basic knowledge of structural equation modeling (SEM).</p>
+        <p><strong>Permutation-based analyses:</strong> competence in permutation tests and bootstrap methods for robust statistical inference.</p>
+        <p><strong>Multivariate analyses:</strong> proficiency in techniques such as PCA, hierarchical clustering, correspondence analysis, multiple correspondence analysis, and related approaches for data exploration and dimensionality reduction.</p>
+        <p><strong>Data visualization:</strong> expertise in creating customized, publication-quality graphics using the <em>gplots</em> and <em>ggplot2</em> packages.</p>
+        <p><strong>Emerging methodologies:</strong> familiarity with multiverse analyses to assess the impact of analytical decisions on results.</p>
+      </div>
+
+      <h3>Physiological signal processing skills</h3>
+      <div class="item">
+        <p><strong>Signal preprocessing and analysis:</strong> experience in preprocessing and analyzing physiological signals, notably electrodermal activity (EDA), heart rate variability (HRV) measured through photoplethysmography (PPG) or electrocardiography (ECG), as well as electromyography (EMG).</p>
+        <p><strong>Data cleaning and artifact removal:</strong> experience in detecting and removing artifacts in order to ensure high-quality physiological data analysis.</p>
+        <p><strong>Software and tools:</strong> proficiency with the <em>NeuroKit2</em> package for signal processing and extraction of physiological data.</p>
+      </div>
+
+      <h3>Machine learning skills</h3>
+      <div class="item">
+        <p><strong>Development of automated facial-expression analysis tools</strong> for infant behavior research using <em>PyTorch</em> and <em>OpenCV</em>. See the i-FACE project on GitHub.</p>
+        <p><strong>Application of DeepFace and Py-Feat</strong> for emotion recognition and facial action unit (AU) detection.</p>
+      </div>
+
+      <h3>Animal experimentation training</h3>
+      <div class="item">
+        <p><strong>Level 1 training in animal experimentation (35 hours):</strong> compliant with European Directive 2010/63/EU – certification obtained.</p>
+      </div>
+
+      <h3>Languages</h3>
+      <ul class="standard-list">
+        <li><strong>English</strong> – B2 (spoken), C1 (written)</li>
+        <li><strong>Spanish</strong> – B1 (spoken), A2 (written)</li>
+        <li><strong>Romanian</strong> – A1 (spoken), A1 (written)</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025–2026 Romain di Stasi. All rights reserved.</p>
+  </footer>
+</body>
+</html>
