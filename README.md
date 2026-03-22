@@ -1,4 +1,4 @@
-# Website — Dr. Romain di Stasi
+# Website - Dr. Romain di Stasi
 
 This repository contains the source code for my academic website.
 
