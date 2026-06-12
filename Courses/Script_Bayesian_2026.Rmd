@@ -1,0 +1,944 @@
+---
+title: "Bayesian_Statistics_2026"
+output: html_document
+date: "2026-06-05"
+author: Romain di Stasi
+---
+
+# I.Package Loading
+
+## I.1. Data Management and general visualization
+
+```{r}
+library(dplyr)         # One of the most famous packages for data manipulation. It may not be as complete as pandas in Python, but it does the job and is more than enough for classical data-frame manipulation.
+
+library(gplots)        # A package that includes various functions for data visualization, including the function plotmeans(), which is particularly useful for visualizing the means of different groups in a dataset, along with confidence intervals.
+
+library(ggplot2)       # One of the best packages for making graphs. It is not necessarily the most accessible one, but it has extensive documentation, which makes it possible to use it in very good conditions.
+
+library(patchwork)     # Particularly useful for combining several graphs into a coherent set, with shared legends and numbering. It can help produce figures that are almost ready for publication, although final adjustments in Inkscape can still be useful.
+```
+
+## I.2. Frequentist modeling
+
+```{r}
+library(nlme)          # One of the packages used to perform mixed models. It is particularly useful when you want to use permutation tests on linear models. To my knowledge, this is one of the main arguments for using this package instead of the more recent lme4 package.
+
+library(lme4)          # One of the most widely used packages for mixed models, including linear, logistic, and other types of models. The most well-known functions associated with this package are lmer() and glmer().
+
+library(car)           # One of the most commonly used packages to extract statistical tests from models.
+
+library(pgirmess)     # A package that allows you to perform permutation tests on linear models, which can be particularly useful when the assumptions of classical linear models are not met.
+
+library(performance)   # A very useful package to check model assumptions and diagnostics, for example with check_model() for diagnostic plots or check_overdispersion() for overdispersion.
+
+library(emmeans)       # Used to perform multiple comparisons and post-hoc analyses, both in frequentist and Bayesian approaches.
+```
+
+## I.3. Bayesian modeling
+
+```{r}
+library(brms)          # The gold-standard package for Bayesian modelling, including mixed models, mainly through the brm() function.
+
+library(bayesplot)     # Particularly useful for making plots adapted to Bayesian statistics.
+
+library(tidybayes)     # Very useful for extracting statistics from Bayesian models and visualising them.
+
+library(priorsense)    # A package to realize then prior sensitivity analysis, which is particularly useful to evaluate the influence of the choice of priors on the results of a Bayesian model. It includes functions like `powerscale_sensitivity()` that allow us to assess how sensitive our results are to the choice of priors, which is an important step in Bayesian analysis to ensure the robustness of our conclusions.
+```
+
+# II. Analyse 1 : Iris Database - Means Comparisons
+
+*Reserarch question* : Does sepal length differ between species?
+
+```{r}
+data_iris <- iris
+print(head(data_iris))
+print(str(data_iris))
+```
+
+## II.1. Data Exploration
+
+```{r}
+# Descriptive statistic
+iris_summary <- data_iris %>%
+  group_by(Species) %>%
+  summarise(
+    n = n(),
+    mean_sepal = mean(Sepal.Length),
+    sd_sepal = sd(Sepal.Length),
+    median_sepal = median(Sepal.Length),
+    .groups = 'drop'
+  )
+print(iris_summary)
+```
+
+## II.2 Exploratory Vizualisation
+
+```{r}
+p1_iris <- ggplot(data_iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  labs(
+    title = "Distribution de la longueur des sépales par espèce",
+    x = "Espèce",
+    y = "Longueur des sépales (cm)",
+    caption = "Données : Iris dataset"
+  ) +
+  scale_fill_viridis_d(name = "Espèce") +
+  theme(legend.position = "none")
+
+p2_iris <- ggplot(data_iris, aes(x = Sepal.Length, fill = Species)) +
+  geom_histogram(alpha = 0.7, bins = 15) +
+  facet_wrap(~ Species, ncol = 1) +
+  labs(
+    title = "Distribution des longueurs de sépales",
+    x = "Longueur des sépales (cm)",
+    y = "Fréquence"
+  ) +
+  scale_fill_viridis_d() +
+  theme(legend.position = "none")
+
+```
+
+```{r}
+print(p1_iris)
+```
+
+```{r}
+print(p2_iris)
+```
+
+## II.3. Frequentist Modeling
+
+```{r}
+# A classical model linear is ...
+model_iris_freq <- lm(Sepal.Length ~ Species, data = data_iris)
+```
+
+Then we have to check the assumptions of the model, for example with the performance package.
+
+```{r}
+check_model(model_iris_freq)
+```
+
+To be sure that the model is valid, we can also use a home-type code like this:
+
+```{r}
+par(mfrow = c(1,2))
+qqPlot(residuals(model_iris_freq), ylab = "Residuals")
+plot(residuals(model_iris_freq) ~ fitted(model_iris_freq), 
+     main = "Residuals vs Fitted", xlab = "Fitted", ylab = "Residuals")
+abline(h = 0, col = "red")
+```
+
+In this context its seem acceptable to use the `Anova` function of the package `Car` to extract the results of the model since the preconditions (homoscedasticity and normality of residuals) are met.
+
+```{r}
+Anova(model_iris_freq, type = "2")
+```
+
+Once the global analyse is realized when it is significant, we can perform post-hoc analyses with the `emmeans` package to compare the means of the different groups.
+
+```{r}
+emmeans(model_iris_freq, pairwise ~ Species, adjust ="holm") # the argument adjust allows to choose the method of correction for multiple comparisons, here we use the Holm-Bonferronni method (argument "holm"), which is less conservative than the classical Bonferroni method. 
+```
+
+In this case the precondition are respected. However in numerous case because of the nature of data. It is simply not possible to use a classical linear model. In this case, we can use generalized linear model with an appropriate distribution (e.g., Poisson, Gamma, Binomial), or we can use permutation test on the linear model, which is more robust to violations of assumptions. To do this, we can use the function `PermTest` from the package `pgirmess`.
+
+```{r}
+PermTest(model_iris_freq, B = 1000)
+```
+
+In this case the p-values displayed is 0, which means that the p-values is too low to be displayed so p \< 0.001. In this case too, we have to perform post-hoc analyses to compare the means of the different groups. In this context, it is not possible to use `emmeans` function. So we have simply to perform comparisons with subset method as follow:
+
+```{r}
+
+model_setosa_vs_versicolor <- lm(Sepal.Length ~ Species, data = subset(data_iris, Species %in% c("setosa", "versicolor")))
+PermTest(model_setosa_vs_versicolor, B = 1000)
+
+model_Setosa_vs_virginica <- lm(Sepal.Length ~ Species, data = subset(data_iris, Species %in% c("setosa", "virginica")))
+PermTest(model_Setosa_vs_virginica, B = 1000)
+
+model_versicolor_vs_virginica <- lm(Sepal.Length ~ Species, data = subset(data_iris, Species %in% c("versicolor", "virginica")))
+PermTest(model_versicolor_vs_virginica, B = 1000)
+
+```
+
+In that specific case, the p-values are not corrected so, we need to do this directly by using the function `p.adjust`. This function is from the package `stats` a native package of R. We can perform it as follow:
+
+```{r}
+p.adjust(c(0.0001, 0.0001, 0.0001), method = "holm")
+```
+
+# III. Bayesian approach
+
+One of the most known package to realize Bayesian modeling is the `brms` package, which is based on the `Stan` software. It allows to perform Bayesian modeling with a syntax very similar to the one of `lme4` package, which makes it particularly accessible for people who are used to frequentist modeling.
+
+## III.1. Iris Dataset
+
+```{r}
+model_iris_bayes <- brm(
+  Sepal.Length ~ Species,     # Formula: sepal length explained by species
+  data = data_iris,           # Our data
+  y = gaussian(),        # Normal distribution (as in classical regression)
+  
+  # === MCMC PARAMETERS (Bayesian sampling algorithm) ===
+  chains = 4,                 # 4 independent chains = 4 different “paths” to explore
+  # the parameters. More chains = more checks
+  
+  iter = 2000,                # 2000 samples per chain (total = 4 × 2000 = 8000)
+  # More samples = more precision but longer computation time
+  
+  warmup = 1000,              # First 1000 samples discarded (learning phase)
+  # The algorithm “learns” where to look for the right values
+  # Useful samples = 2000 × 4 = 8000
+  
+  cores = 4,                  # Uses 4 computer processors simultaneously
+  # = faster computation (instead of running the 4 chains one by one)
+  # If your PC has fewer than 4 cores, use cores = 2
+  
+  seed = 123                  # “Seed” to always get the same results
+  # Without this, the results would change each time
+)
+```
+
+As mentioned in my courses the model is not the reality that's equally true for Bayesian than frequentest modelling. So know we have to consider is our model fit appropriatly to the data. For this we have to use specific diagnostic plots.
+
+#### Step 1: We have to check wether our MCMC (Markov Chain Monte Carlo) algorithm has converged.
+
+This is crucial for the validity of our results. We can do this by looking at the trace plots of the chains, which show how the sampled values of the parameters evolve over iterations. If the chains have converged, we should see that they mix well and do not show any trends or patterns.
+
+```{r}
+plot(model_iris_bayes)
+```
+
+As you can see from the trace plots, the chains seem to mix well and do not show any trends, which suggests that the MCMC algorithm has converged. An important point to consider it the caterpilar plot at the right. The more they are fussy, the more the MCMC explore correctly the parameters.
+
+#### Step 2: We have to check the posterior predictive checks to see how well the model fits the data.
+
+This will give us a plot comparing the observed data with the data simulated from the model. If the model fits well, the simulated data should look similar to the observed data.
+
+```{r}
+pp_check(model_iris_bayes)
+```
+
+Here you can see the difference between the observed data (in dark blue) and the data simulated from the model (in light blue). If the model fits well, the dark blue line should be close to the simulated by the MCMC. In this case, it seems that the model fits reasonably well.
+
+#### Step 3: We can also check the posterior predictive checks grouped by species to see how well the model fits the data for each species separately.
+
+This can help us to identify if there are any specific issues with the model fit for certain groups.
+
+```{r}
+pp_check(model_iris_bayes, type = "stat_grouped", group = "Species") # Posterior predictive check to see how well the model fits the data. This will give us a plot comparing the observed data with the data simulated from the model, grouped by species. If the model fits well, the simulated data should look similar to the observed data.
+
+```
+
+Once the model is fitted, we can check the summary to see the results of the model, including the estimates of the parameters, their credible intervals, and the credibility of the effects.
+
+#### Step 4: We can check the summary of the model to see the results.
+
+Including the estimates of the parameters, their credible intervals, and the credibility of the effects.
+
+```{r}
+summary(model_iris_bayes)
+```
+
+*How to interpret the results?* - `Estimage` = the estimated effect of each species on sepal length (compared to the reference category, which is setosa in this case).
+
+- `Est.Error` = the standard error of the estimate, which gives an idea of the precision of the estimate.
+
+- `l-95% CI` and `u-95% CI` = the lower and upper bounds of the 95% credible interval for the estimate. If this interval does not include zero, it suggests that the effect is credibly different from zero.
+
+- `Rhat` = a diagnostic statistic that indicates whether the Markov chains have converged. Values close to 1 suggest good convergence.
+
+- `Bulk_ESS` and `Tail_ESS` = effective sample sizes for the bulk and tail of the posterior distribution, which indicate how well the posterior distribution has been sampled. Higher values suggest better sampling.
+
+*Be careful* : The interpretation of the results in Bayesian statistics is different from that in frequentist statistics. In Bayesian statistics, we talk about the credibility of effects rather than their statistical significance. An effect is considered credible if its credible interval does not include zero, which suggests that there is a high probability that the effect is different from zero given the data and the model.
+
+Another point to consider is the fact that in the summary the effects are compared to the reference category (setosa in this case). If we want to compare the effects of versicolor and virginica directly, we can use the `hypothesis` function from the `brms` package to test specific hypotheses about the parameters of the model. For example, to test if the effect of versicolor is credibly different from zero, we can use the following code:
+
+#### Step 5: We can use the `hypothesis` function to test specific hypotheses about the parameters of the model.
+
+For example, to test if the effect of versicolor is credibly different from zero, we can use the following code:
+
+```{r}
+hypothesis(model_iris_bayes, "Speciesversicolor = 0") # Test if the effect of versicolor is credibly different from zero)
+```
+
+To realize post-hoc analyses, we can use the `emmeans` package, which allows us to perform pairwise comparisons between the different species, taking into account the Bayesian model we have fitted. The syntax is similar to that used in frequentist models, but it will give us the estimated differences between the groups along with their credible intervals.
+
+### Step 6: We can use the `emmeans` function to perform pairwise comparisons.
+
+Between the different species, taking into account the Bayesian model we have fitted.
+
+```{r}
+emmeans(model_iris_bayes, pairwise ~ Species)
+```
+
+Do not forget what I said at the begging of my courses. The estimate means depend completely on the distribution, indeed, whether the arithmetic means is an appropriate measure of central dispersion within a Gaussian distribution, it is not the case for other distributions. That's why, the `conditional_effects` function could be useful to have a visual representation of the effects of the different species on sepal length, taking into account the distribution of the data and the model we have fitted. This function will give us a plot with the estimated effects of each species along with their credible intervals, which can help us to better understand the results of our Bayesian model.
+
+```{r}
+conditional_effects(model_iris_bayes)
+```
+
+## III.2. Car Dataset
+
+### III.2.1. Data importation
+
+Let's then work in another case. Before we where in a comparison of means (i.e. the relationship between qualitative and quantitative variable), now will work on the relationship between two quantitative variables. For this we will use the `cars` dataset, which is a built-in dataset in R that contains data on the speed of cars and the distance taken to stop. This dataset is often used as an example for regression analysis. We will explore the relationship between speed and stopping distance using both frequentist and Bayesian approaches.
+
+So in this context *our research question is* : Is there a relationship between the speed of cars and the distance taken to stop?
+
+```{r}
+data_cars <- cars
+print(head(cars))
+summary(data_cars)
+# View(data_cars)
+```
+
+The first step is always to explore the data, both with descriptive statistics and with visualizations, to get a better understanding of the relationship between the variables and to check for any potential issues (e.g., outliers, non-linearity, etc.) that could affect our modeling approach.
+
+### III.2.2. Data vizualisation
+
+We can also add a `smooth curve` (e.g., LOESS) to explore the shape of the relationship.
+
+```{r}
+p1_cars <- ggplot(data_cars, aes(x = speed, y = dist)) +
+  geom_point(alpha = 0.7, size = 3) +
+  geom_smooth(method = "loess", se = TRUE) +
+  labs(
+    title = "Relation entre vitesse et distance de freinage",
+    subtitle = "Courbe LOESS pour explorer la forme de la relation",
+    x = "Vitesse (mph)",
+    y = "Distance de freinage (ft)",
+    caption = "Données : cars dataset"
+  ) +
+  theme_minimal()
+
+print(p1_cars)
+```
+
+The relationship between speed and stopping distance does not seem to be perfectly linear. However it seem relatively close to a linear relationship, which suggests that a linear model could be a reasonable starting point for our analysis. We can then explore the relationship with a linear regression line to see how well it fits the data.
+
+```{r}
+p2_cars <- ggplot(data_cars, aes(x = speed, y = dist)) +
+  geom_point(alpha = 0.7, size = 3) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    title = "Relation entre vitesse et distance de freinage",
+    subtitle = "Régression linéaire",
+    x = "Vitesse (mph)",
+    y = "Distance de freinage (ft)",
+    caption = "Données : cars dataset"
+  ) +
+  theme_minimal()
+
+print(p2_cars)
+```
+
+Here the distibution of the data points around the regression line suggest that a linear model is not the most appropriate to model the relationship between speed and stopping distance. The data points seem to show a more curved relationship, which suggests that a non-linear model.
+
+```{r}
+p_cars_compare <- ggplot(data_cars, aes(x = speed, y = dist)) +
+  geom_point(alpha = 0.7, size = 3) +
+  geom_smooth(method = "loess", se = FALSE, linewidth = 1) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", linewidth = 1) +
+  labs(
+    title = "Relation entre vitesse et distance de freinage",
+    subtitle = "Comparaison entre tendance souple (LOESS) et tendance linéaire",
+    x = "Vitesse (mph)",
+    y = "Distance de freinage (ft)",
+    caption = "Ligne pleine = LOESS ; ligne pointillée = modèle linéaire"
+  ) +
+  theme_minimal()
+
+print(p_cars_compare)
+```
+
+```{r}
+# Ajustement LOESS
+mod_loess <- loess(dist ~ speed, data = data_cars)
+
+# Ajouter les valeurs prédites et les résidus au dataframe
+data_cars$residus_loess <- residuals(mod_loess)
+data_cars$pred_loess <- fitted(mod_loess)
+```
+
+```{r}
+ggplot(data_cars, aes(sample = residus_loess)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(
+    title = "Q-Q plot des résidus LOESS",
+    x = "Quantiles théoriques",
+    y = "Quantiles observés"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data_cars, aes(x = residus_loess)) +
+  geom_histogram(bins = 10, color = "white") +
+  labs(
+    title = "Distribution des résidus LOESS",
+    x = "Résidus",
+    y = "Fréquence"
+  ) +
+  theme_minimal()
+```
+
+Here, we can see that linear regression is not necessarily the best model to describe the relationship. However, in many cases, researchers accept this type of deviation, as linear regression is relatively robust to slight violations of its assumptions.
+
+Personally, I would consider using a non-linear model to better capture the relationship between speed and stopping distance. However, for the sake of clarity, we will assume here that linear regression is appropriate.
+
+In this context, we can then proceed with fitting a linear model to the data and checking its assumptions before interpreting the results.
+
+### III.2.3. Frequentist modeling
+
+```{r}
+model_cars_freq <- lm(dist ~ speed, data = data_cars)
+
+check_model(model_cars_freq)
+```
+
+Since the preconditions seems to be relatvely respected we can perform an analyse of variance on the model to identify wether: $\beta_1 \neq 0$
+
+```{r}
+Anova(model_cars_freq, type = "2") # Here the type ="2", means that we did not consider any interaction in our model. If we had interactions we would have to use type ="3". 
+```
+
+So here we will apply the same kind of analyses using a Bayesian approach.
+
+### III.2.4. Bayesian modeling
+
+```{r}
+model_cars_bayes <- brm(
+  dist ~ speed,               # braking distance explained by speed
+  data = data_cars, 
+  family = gaussian(),        # normal distribution of the residuals (as in classical regression)
+  
+  # === MCMC PARAMETERS (Bayesian sampling algorithm) ===
+  chains = 4,                 # 4 chains = 4 independent “paths” to explore the parameters. More chains = more checks
+  iter = 2000,                # 2000 samples per chain (total = 4 × 2000 = 8000). More samples = more precision but longer                                      computation time
+  warmup = 1000,              # 1000 first samples discarded (learning phase). The algorithm “learns” where to look for the                                     right values. Useful samples = (2000 - 1000) × 4 = 4000
+  cores = 4,                  # Uses 4 computer processors simultaneously = faster computation (instead of running the 4 chains                                 one by one). If your PC has fewer than 4 cores, use cores = 2
+  seed = 123                  # Makes sure to always get the same results (without this, the results would change each time
+)
+```
+
+As previously mentioned, we have to check the convergence of the MCMC algorithm and the fit of the model to the data before interpreting the results.
+
+```{r}
+pp_check(model_cars_bayes)
+```
+
+It seems that the model fits reasonably well, as the observed data (in dark blue) is relatively close to the data simulated from the model (in light blue). We then have to check the trace plots to see if the MCMC algorithm has converged properly. We should see that the chains mix well and do not show any trends or patterns, which would suggest good convergence.
+
+```{r}
+plot(model_cars_bayes)
+```
+
+It's look very good !
+
+```{r}
+summary(model_cars_bayes)
+```
+
+The estimated slope parameter of our model is $\beta_1 = 3.92$. The credible interval for $\beta_1$ does not include zero, which suggests a credible positive relationship between speed and stopping distance:
+
+$$\beta_1 \neq 0$$
+
+In other words, as speed increases, stopping distance also tends to increase. The $\hat{R}$ value is below 1.01, suggesting good convergence of the MCMC chains. The effective sample sizes, both Bulk ESS and Tail ESS, are also reasonably high ($> 1000$), indicating that the posterior distribution has been well sampled.
+
+We can then evaluate whether $\beta_1$ is credibly different from zero using the `hypothesis` function, which allows us to test specific hypotheses about the parameters of the model. In this case, we want to test if the effect of speed on stopping distance is credibly different from zero.
+
+```{r}
+hypothesis(model_cars_bayes, "speed > 0") # Test if the effect of speed is credibly different from zero
+```
+
+In this context the Evidence ratio is very high sinc it is writted "Inf", that is to say that the data provide overwhelming evidence in favor of the hypothesis that the effect of speed on stopping distance is greater than zero, compared to the null hypothesis that the effect is less than or equal to zero. In this context the Evid.Ratio is the BF. It is possible to write BF\>300 in our case.
+
+Finally, we can use the `conditional_effects` function to visualize the estimated relationship between speed and stopping distance, along with the credible intervals. This will give us a plot showing how stopping distance changes as speed increases, taking into account the uncertainty in our estimates.
+
+```{r}
+conditional_effects(model_cars_bayes)
+```
+
+```{r}
+# Bayesian predictions with credible intervals
+newdata_cars <- data.frame(speed = seq(min(data_cars$speed), max(data_cars$speed), length.out = 50))
+pred_cars <- fitted(model_cars_bayes, newdata = newdata_cars, probs = c(0.025, 0.975))
+
+pred_df <- data.frame(
+  speed = newdata_cars$speed,
+  Estimate = pred_cars[,1],
+  Q2.5 = pred_cars[,2],
+  Q97.5 = pred_cars[,3]
+)
+
+p2_cars <- ggplot(data_cars, aes(x = speed, y = dist)) +
+  geom_line(data = pred_df, aes(x = speed, y = Estimate), 
+            color = "blue", size = 1, inherit.aes = FALSE) +
+  geom_point(alpha = 0.7, size = 3) +
+  labs(
+    title = "Régression bayésienne : Vitesse vs Distance de freinage",
+    subtitle = "Ligne bleue : moyenne postérieure, zone bleue : intervalle de crédibilité 95%",
+    x = "Vitesse (mph)",
+    y = "Distance de freinage (ft)"
+  )
+
+print(p2_cars)
+```
+
+# IV. Prior specification and sensitivity analysis
+
+##IV.1] Example with the IRIS dataset
+
+## IV.2.] Prior sensitivity analysis — Iris dataset
+
+In this example, we assess whether the effect of species on sepal length is sensitive to the choice of priors.
+
+Our dependent variable is:
+
+$$Sepal.Length_i \sim Normal(\mu_i, \sigma)$$
+
+That's means that the sepal length of each observation $i$ is assumed to be normally distributed with a mean $\mu_i$ and a standard deviation $\sigma$. The mean $\mu_i$ is modeled as a linear combination of the species categories:
+
+$$\mu_i = \beta_0 + \beta_1 Species_{versicolor,i} + \beta_2 Species_{virginica,i}$$ In this case $$\beta_0$$ represents the intercept, which is the estimated mean sepal length for the reference category (setosa). The coefficients $$\beta_1$$ and $$\beta_2$$ represent the estimated difference in mean sepal length between versicolor and setosa, and between virginica and setosa, respectively.It is importan to consider this formula to set correctly our prior concerning our residuals.
+
+In this model, the intercept corresponds to the estimated mean sepal length for the reference category, here *setosa*. The coefficients for *versicolor* and *virginica* represent their difference from *setosa*.
+
+We can use the function `get_prior()` to see the default priors for this model, and the function `default_prior()` to see the default priors for the parameters of the model.
+
+```{r}
+set.seed(123)
+
+get_prior(
+  Sepal.Length ~ Species,
+  data = data_iris,
+  family = gaussian()
+)
+
+default_prior(
+  Sepal.Length ~ Species,
+  data = data_iris,
+  family = gaussian()
+)
+```
+
+We now test several prior specifications. Because sepal length is measured in centimeters, very large differences between species are unlikely. However, to ensure that our results are not driven by the prior, we compare priors with different standard deviations.
+
+```{r}
+priors_test_iris <- list(
+  strong = c(
+    prior(normal(5, 1), class = "Intercept"), # that's means that we expect the mean sepal length for setosa to be around 5 cm, with a standard deviation of 1 cm, which allows for some variability but still reflects our prior belief that the mean sepal length for setosa is likely to be around 5 cm.
+    
+    prior(normal(0, 0.5), class = "b"), # that's means that we expect the differences in sepal length between versicolor and setosa, and between virginica and setosa, to be around 0 cm, with a standard deviation of 0.5 cm. 
+    
+    prior(exponential(2), class = "sigma") # The parameter sigma represents the residual standard deviation. Here, the exponential prior ensures that sigma remains positive and expresses the expectation that small residual variability is more plausible than very large residual variability, while still allowing larger values if supported by the data.
+  ),
+  
+  medium = c(
+    prior(normal(5, 1.5), class = "Intercept"),
+    prior(normal(0, 1), class = "b"),
+    prior(exponential(1), class = "sigma")
+  ),
+  
+  weak = c(
+    prior(normal(5, 2), class = "Intercept"),
+    prior(normal(0, 2), class = "b"),
+    prior(exponential(1), class = "sigma")
+  ),
+  
+  very_weak = c(
+    prior(normal(5, 5), class = "Intercept"),
+    prior(normal(0, 5), class = "b"),
+    prior(exponential(0.5), class = "sigma")
+  ),
+  
+  minimal = c(
+    prior(normal(5, 10), class = "Intercept"),
+    prior(normal(0, 10), class = "b"),
+    prior(exponential(0.1), class = "sigma")
+  )
+)
+```
+
+To test prior sensitivity, we fit quick models with fewer iterations. This allows us to compare the influence of the prior without spending too much time on computation.
+
+```{r}
+model_strong_iris <- brm(
+  Sepal.Length ~ Species,
+  data = data_iris,
+  family = gaussian(),
+  prior = priors_test_iris$strong,
+  iter = 2000,
+  warmup = 1000,
+  chains = 2,
+  cores = 2,
+  seed = 123,
+  save_pars = save_pars(all = TRUE)
+)
+
+model_medium_iris <- brm(
+  Sepal.Length ~ Species,
+  data = data_iris,
+  family = gaussian(),
+  prior = priors_test_iris$medium,
+  iter = 2000,
+  warmup = 1000,
+  chains = 2,
+  cores = 2,
+  seed = 123,
+  save_pars = save_pars(all = TRUE)
+)
+
+model_weak_iris <- brm(
+  Sepal.Length ~ Species,
+  data = data_iris,
+  family = gaussian(),
+  prior = priors_test_iris$weak,
+  iter = 2000,
+  warmup = 1000,
+  chains = 2,
+  cores = 2,
+  seed = 123,
+  save_pars = save_pars(all = TRUE)
+)
+
+model_very_weak_iris <- brm(
+  Sepal.Length ~ Species,
+  data = data_iris,
+  family = gaussian(),
+  prior = priors_test_iris$very_weak,
+  iter = 2000,
+  warmup = 1000,
+  chains = 2,
+  cores = 2,
+  seed = 123,
+  save_pars = save_pars(all = TRUE)
+)
+
+model_minimal_iris <- brm(
+  Sepal.Length ~ Species,
+  data = data_iris,
+  family = gaussian(),
+  prior = priors_test_iris$minimal,
+  iter = 2000,
+  warmup = 1000,
+  chains = 2,
+  cores = 2,
+  seed = 123,
+  save_pars = save_pars(all = TRUE)
+)
+
+model_flat_iris <- brm(
+  Sepal.Length ~ Species,
+  data = data_iris,
+  family = gaussian(),
+  iter = 2000,
+  warmup = 1000,
+  chains = 2,
+  cores = 2,
+  seed = 123,
+  save_pars = save_pars(all = TRUE)
+)
+```
+
+We can then use `powerscale_sensitivity()` to evaluate the sensitivity of each parameter to the prior.
+
+```{r}
+powerscale_sensitivity(model_strong_iris, variable = "b_Speciesversicolor")
+powerscale_sensitivity(model_medium_iris, variable = "b_Speciesversicolor")
+powerscale_sensitivity(model_weak_iris, variable = "b_Speciesversicolor")
+powerscale_sensitivity(model_very_weak_iris, variable = "b_Speciesversicolor")
+powerscale_sensitivity(model_minimal_iris, variable = "b_Speciesversicolor")
+powerscale_sensitivity(model_flat_iris, variable = "b_Speciesversicolor")
+
+powerscale_sensitivity(model_strong_iris, variable = "b_Speciesvirginica")
+powerscale_sensitivity(model_medium_iris, variable = "b_Speciesvirginica")
+powerscale_sensitivity(model_weak_iris, variable = "b_Speciesvirginica")
+powerscale_sensitivity(model_very_weak_iris, variable = "b_Speciesvirginica")
+powerscale_sensitivity(model_minimal_iris, variable = "b_Speciesvirginica")
+powerscale_sensitivity(model_flat_iris, variable = "b_Speciesvirginica")
+```
+
+In this context the best prior is probably the medium one since the strong prior influence too many the data.
+
+For it last the prior influence to 0.026 of the data and the real data (i.e., the likelihood) influence to 0.105 of the data, which means that the data have more influence than the prior on the results of the model).
+
+We can compare the posterior estimates across prior specifications.
+
+```{r}
+summary(model_strong_iris)$fixed
+summary(model_medium_iris)$fixed
+summary(model_weak_iris)$fixed
+summary(model_very_weak_iris)$fixed
+summary(model_minimal_iris)$fixed
+summary(model_flat_iris)$fixed
+```
+
+In thas case, we can see that the prior is not influencing the results of the model, since the estimates of the parameters are relatively similar across the different prior specifications. The credible intervals also overlap, which suggests that the results are not sensitive to the choice of priors.
+
+More specifically, we can compare the two species effects:
+
+```{r}
+summary(model_strong_iris)$fixed[c("Speciesversicolor", "Speciesvirginica"), ]
+summary(model_medium_iris)$fixed[c("Speciesversicolor", "Speciesvirginica"), ]
+summary(model_weak_iris)$fixed[c("Speciesversicolor", "Speciesvirginica"), ]
+summary(model_very_weak_iris)$fixed[c("Speciesversicolor", "Speciesvirginica"), ]
+summary(model_minimal_iris)$fixed[c("Speciesversicolor", "Speciesvirginica"), ]
+summary(model_flat_iris)$fixed[c("Speciesversicolor", "Speciesvirginica"), ]
+```
+
+In the same manner, we can compare the effects of versicolor and virginica to the reference category (setosa) across the different prior specifications. The estimates for both versicolor and virginica are relatively similar across the different priors, and their credible intervals overlap, which suggests that the results are not sensitive to the choice of priors.
+
+## IV.3.] The use of the function hypothesis.
+
+Before we used model with relativey few iterations to test the influence of the priors on the results. Now we can use the model with more iterations to test specific hypotheses about the parameters of the model, such as whether the effect of versicolor is credibly different from that of virginica.
+
+We chosed the prior medium for this model since it is the one that have the best balance between influence of the prior and influence of the data. So
+
+```{r}
+Final_model_iris <- brm(
+  Sepal.Length ~ Species,
+  data = data_iris,
+  family = gaussian(),
+  prior = priors_test_iris$medium,
+  iter = 3000,
+  warmup = 1000,
+  chains = 4,
+  cores = 4,
+  seed = 123,
+  sample_prior = "yes", 
+  save_pars = save_pars(all = TRUE)
+)
+```
+
+In this context the summary compare directly two by two the effects of versicolor and virginica to the reference category (setosa). If we want to compare the effects of versicolor and virginica directly, we can use the `hypothesis` function from the `brms` package to test specific hypotheses about the parameters of the model. For example, to test if the effect of versicolor is credibly different from that of virginica, we can use the following code:
+
+```{r}
+BF_versicolor_virginica <- hypothesis(
+  Final_model_iris,
+  "Speciesversicolor - Speciesvirginica < 0"
+)
+
+BF_versicolor_virginica
+```
+
+Here, the evidence ratio is too large to be estimated numerically and is therefore reported as infinite. This occurs because, across the posterior distribution of the difference between versicolor and virginica, no posterior draw is greater than or equal to zero. In other words, all posterior draws support the hypothesis that versicolor has a lower estimated sepal length than virginica.
+
+This indicates extremely strong evidence for a credible difference between versicolor and virginica. Therefore, we can conclude that the estimated effect of versicolor is credibly different from that of virginica. In this case, the evidence ratio can be interpreted as extreme evidence in favour of the directional hypothesis, for example $\text{BF} > 300$.
+
+To realize all comparisons two by two we can use the function `emmeans` of the package `emmeans`, which allows us to perform pairwise comparisons between the different species, taking into account the Bayesian model we have fitted. The syntax is similar to that used in frequentist models, but it will give us the estimated differences between the groups along with their credible intervals.
+
+We can also use the function emmeans to compare the effects of versicolor and virginica directly, as follow:
+
+```{r}
+Contrast = emmeans(model_flat_iris, ~ pairwise~Species)
+Contrast
+```
+
+In this context, we can sse that all comparisons two by two are credible, which means that the effects of versicolor and virginica are credibly different from each other and from setosa.
+
+Finally, we can visualize the posterior distribution of each parameter under the different prior specifications.
+
+```{r}
+conditional_effects(model_strong_iris)
+```
+
+```{r}
+draws_strong_iris <- model_strong_iris %>%
+  spread_draws(b_Speciesversicolor, b_Speciesvirginica) %>%
+  mutate(Prior = "Strong")
+
+draws_medium_iris <- model_medium_iris %>%
+  spread_draws(b_Speciesversicolor, b_Speciesvirginica) %>%
+  mutate(Prior = "Medium")
+
+draws_weak_iris <- model_weak_iris %>%
+  spread_draws(b_Speciesversicolor, b_Speciesvirginica) %>%
+  mutate(Prior = "Weak")
+
+draws_very_weak_iris <- model_very_weak_iris %>%
+  spread_draws(b_Speciesversicolor, b_Speciesvirginica) %>%
+  mutate(Prior = "Very Weak")
+
+draws_minimal_iris <- model_minimal_iris %>%
+  spread_draws(b_Speciesversicolor, b_Speciesvirginica) %>%
+  mutate(Prior = "Minimal")
+
+draws_flat_iris <- model_flat_iris %>%
+  spread_draws(b_Speciesversicolor, b_Speciesvirginica) %>%
+  mutate(Prior = "Flat")
+
+all_draws_iris <- bind_rows(
+  draws_strong_iris,
+  draws_medium_iris,
+  draws_weak_iris,
+  draws_very_weak_iris,
+  draws_minimal_iris,
+  draws_flat_iris
+)
+
+all_draws_iris_long <- all_draws_iris %>%
+  tidyr::pivot_longer(
+    cols = c(b_Speciesversicolor, b_Speciesvirginica),
+    names_to = "Parameter",
+    values_to = "Estimate"
+  )
+
+prior_sensitivity_iris <- ggplot(all_draws_iris_long, aes(x = Estimate, y = Prior, fill = Prior)) +
+  stat_halfeye(.width = c(.5, .8, .95)) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  facet_wrap(~ Parameter, scales = "free_x") +
+  labs(
+    x = "Effect size (β)",
+    y = NULL,
+    title = "Sensitivity of species effects to prior choice"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+prior_sensitivity_iris
+```
+
+If the posterior distributions remain similar across the different prior specifications, this suggests that the results are mainly driven by the data rather than by the priors. If the posterior distributions change substantially across prior specifications, this indicates that the results are sensitive to the choice of priors, and caution is needed when interpreting the results. In such cases, it may be necessary to collect more data or, when there is no strong prior knowledge to justify informative priors, to use less informative priors.
+
+
+# V. Exercise - Mixed effect model
+
+```{r}
+data(Milk, package = "nlme")
+data_milk <- as.data.frame(Milk)
+print(head(data_milk))
+print(str(data_milk))
+```
+```{r}
+library(contrastable)
+data_milk$Cow = as.unordered(data_milk$Cow)
+str(data_milk)
+```
+
+```{r}
+p1_milk <- ggplot(data_milk, aes(x = Time, y = protein, color = Diet)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "loess", se = TRUE) +
+  labs(
+    title = "Evolution du taux de protéines selon le régime alimentaire",
+    x = "Temps (semaines)",
+    y = "Taux de protéines (%)",
+    color = "Régime"
+  ) +
+  scale_color_viridis_d()
+
+print(p1_milk)
+```
+```{r}
+model_milk_freq <- lme(protein ~ Diet + Time
+                       , random = ~ 1 | Cow, data = data_milk)
+check_model(model_milk_freq)
+```
+
+```{r}
+Anova(model_milk_freq, type = "2")
+```
+
+```{r}
+model_milk_bayes <- brm(
+  protein ~ Diet + Time + (1 | Cow),
+  data = data_milk,
+  family = gaussian(),
+  chains = 4,
+  iter = 3000,
+  warmup = 1000,
+  cores = 4,
+  seed = 123
+)
+```
+```{r}
+data_sleep <- as.data.frame(sleep)
+
+ggplot(data_sleep, aes(x = extra)) +
+  geom_histogram(
+    bins = 10,
+    color = "white",
+    fill = "skyblue"
+  ) +
+  labs(
+    title = "Distribution du changement d'heures de sommeil",
+    subtitle = "Données : sleep",
+    x = "Changement d'heures de sommeil",
+    y = "Fréquence"
+  ) +
+  theme_minimal()
+```
+```{r}
+check_distribution(data_sleep$extra)
+```
+
+```{r}
+library(ggplot2)
+
+data(sleep)
+data_sleep <- as.data.frame(sleep)
+
+ggplot(data_sleep, aes(sample = extra)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(
+    title = "QQ-plot de la variable extra",
+    x = "Quantiles théoriques normaux",
+    y = "Quantiles observés"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+data(sleep)
+data_sleep <- as.data.frame(sleep)
+print(head(data_sleep))
+print(str(data_sleep))
+```
+
+```{r}
+plotmeans(extra ~ group, data = data_sleep, xlab = "Groupe", ylab = "Durée de sommeil supplémentaire (heures)", main = "Durée de sommeil supplémentaire par groupe")
+```
+
+
+
+```{r}
+model_sleep_bayes = brm(
+  extra ~ group
+  + (1 | ID),              # random intercept for each subject (ID) to account for repeated measures)
+  data = data_sleep, 
+  family = student(),        # student is a distribution that is more robust to outliers than the normal distribution, which can be useful when the data do not perfectly meet the assumptions of normality. The student distribution has heavier tails than the normal distribution, allowing it to better accommodate outliers and provide more accurate estimates in such cases.
+  
+  # === MCMC PARAMETERS (Bayesian sampling algorithm) ===
+  chains = 4,                 # 4 chains = 4 independent “paths” to explore the parameters. More chains = more checks
+  iter = 3000,                # 3000 samples per chain (total = 4 × 3000 = 12000). More samples = more precision but longer                                      computation time
+  warmup = 1000,              # 1000 first samples discarded (learning phase). The algorithm “learns” where to look for the                                     right values.
+  cores = 4,                  # Uses 4 computer processors simultaneously = faster computation (instead of running the 4 chains                                 one by one). If your PC has fewer than 4 cores, use cores = 2
+  seed = 123                  # Makes sure to always get the same results (without this, the results would change each time
+)
+```
+
+
+```{r}
+pp_check(model_sleep_bayes)
+```
+
+```{r}
+plot(model_sleep_bayes)
+```
+
+```{r}
+pp_check(model_sleep_bayes, type = "stat_grouped", group = "group")
+```
+```{r}
+summary(model_sleep_bayes)
+```
+```{r}
+hypothesis(model_sleep_bayes, "group2 > 0")
+```
